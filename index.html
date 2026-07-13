@@ -261,6 +261,8 @@
   <div class="panel" id="panel-recipes">
     <div class="topbar">
       <button class="btn btn-main btn-sm" onclick="openForm()">+ 추가</button>
+      <div class="spacer"></div>
+      <button class="btn btn-line btn-sm" onclick="resetRecipes()">기본 레시피로 되돌리기</button>
     </div>
 
     <div class="search-box">
@@ -304,7 +306,7 @@
 
 <script>
 // ───────── 데이터 ─────────
-let recipes = [
+const DEFAULT_RECIPES = [
   {name:"복숭아스무디", cat:"스무디", ing:[["우유","200ml"],["요거트","3래들"],["복숭아베이스","3펌프"],["얼음","2스쿱"]], steps:"1. 갈갈갈\n2. 컵 벽면에 복숭아베이스 1펌프\n3. 담기"},
   {name:"애플머스켓스무디", cat:"스무디", ing:[["우유","200ml"],["요거트","3래들"],["애플머스켓베이스","3펌프"],["얼음","2스쿱"]], steps:"1. 갈갈갈\n2. 컵 벽면에 애플머스캣베이스 1펌프\n3. 담기"},
   {name:"블루베리스무디", cat:"스무디", ing:[["우유","200ml"],["요거트","3래들"],["블루베리베이스","3펌프"],["얼음","2스쿱"]], steps:"1. 갈갈갈\n2. 컵 벽면에 블루베리베이스 1펌프\n3. 담기"},
@@ -314,6 +316,32 @@ let recipes = [
   {name:"수박주스", cat:"주스", ing:[["수박주스","300ml"],["냉동수박다이스","2스쿱"],["얼음",""]], steps:"1. 갈갈갈\n2. 얼음\n3. 담기"},
   {name:"저당꿀배 XO야쿠르트", cat:"야쿠르트", ing:[["꿀배베이스","컵 밑선"],["요구르트","2개"],["얼음",""]], steps:""}
 ];
+const STORAGE_KEY = 'drinkQuizRecipes_v1';
+
+function loadRecipes(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      if(Array.isArray(data) && data.length > 0) return data;
+    }
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_RECIPES));
+}
+function saveRecipes(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
+  }catch(e){}
+}
+function resetRecipes(){
+  if(confirm('모든 수정 내용을 지우고 기본 레시피로 되돌릴까요?')){
+    recipes = JSON.parse(JSON.stringify(DEFAULT_RECIPES));
+    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+    renderList();
+  }
+}
+
+let recipes = loadRecipes();
 let editIndex = -1;
 
 // ───────── 탭 ─────────
@@ -394,6 +422,7 @@ function saveRecipe(){
     steps: document.getElementById('fSteps').value.trim()
   };
   if(editIndex<0) recipes.push(r); else recipes[editIndex]=r;
+  saveRecipes(); // 자동 저장
   closeForm(); renderList();
 }
 // ───────── 플래시카드 ─────────
