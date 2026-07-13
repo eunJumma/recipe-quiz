@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="음료퀴즈">
+<meta name="theme-color" content="#1E5A4B">
+<link rel="apple-touch-icon" href="icon.png">
+<title>음료 레시피 퀴즈</title>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFF6F2;
+    --ink:#41333F;
+    --ink-soft:#94808C;
+    --card:#FFFFFF;
+    --line:#F6E3E7;
+    --pink:#F26B8A;
+    --pink-deep:#E14E72;
+    --pink-soft:#FDE8EE;
+    --mint:#2FB08C;
+    --mint-soft:#E0F6EF;
+    --peach:#FFB37E;
+    --red:#EF5350;
+    --shadow:0 6px 18px rgba(226,110,140,.12);
+    --radius:20px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Noto Sans KR', sans-serif;
+    background:linear-gradient(180deg,#FFF1EC 0%,#FDF5FA 55%,#F1FAF6 100%) fixed;
+    color:var(--ink);
+    min-height:100vh;
+  }
+  .wrap{max-width:560px; margin:0 auto; padding:24px 16px 60px;}
+
+  header{text-align:center; margin-bottom:18px;}
+  header .eyebrow{
+    font-size:11px; letter-spacing:4px; color:var(--pink);
+    font-weight:700; margin-bottom:4px;
+  }
+  header h1{
+    font-family:'Jua', sans-serif; font-weight:400; font-size:30px;
+  }
+  .dots{display:flex; gap:6px; justify-content:center; margin-top:8px;}
+  .dots span{width:8px; height:8px; border-radius:50%;}
+  .dots span:nth-child(1){background:var(--pink);}
+  .dots span:nth-child(2){background:var(--peach);}
+  .dots span:nth-child(3){background:var(--mint);}
+
+  /* 탭 */
+  .tabs{
+    display:flex; background:var(--card);
+    border-radius:999px; padding:5px; margin-bottom:12px;
+    box-shadow:var(--shadow);
+  }
+  .tabs button{
+    flex:1; border:none; background:none; padding:11px 0;
+    font-family:'Jua', sans-serif; font-size:15px; letter-spacing:1px;
+    color:var(--ink-soft); border-radius:999px; cursor:pointer;
+  }
+  .tabs button.on{
+    background:linear-gradient(135deg, var(--pink) 0%, #FF9F8E 100%);
+    color:#fff; box-shadow:0 3px 10px rgba(242,107,138,.35);
+  }
+  .manage-row{text-align:right; margin:0 6px 16px;}
+  .manage-btn{
+    border:none; background:none; cursor:pointer;
+    font-family:inherit; font-size:13px; font-weight:700;
+    color:var(--pink-deep); padding:6px 4px;
+    text-decoration:underline; text-underline-offset:3px;
+  }
+
+  .panel{display:none;}
+  .panel.on{display:block;}
+
+  /* 공통 버튼 */
+  .btn{
+    display:inline-block; border:none; cursor:pointer;
+    font-family:inherit; font-size:15px; font-weight:700;
+    padding:12px 20px; border-radius:14px;
+  }
+  .btn-main{
+    background:linear-gradient(135deg, var(--pink), #FF9F8E); color:#fff;
+    box-shadow:0 3px 10px rgba(242,107,138,.3);
+  }
+  .btn-main:active{filter:brightness(.95);}
+  .btn-green{
+    background:var(--mint); color:#fff;
+    box-shadow:0 3px 10px rgba(47,176,140,.25);
+  }
+  .btn-line{background:var(--card); border:1.5px solid var(--line); color:var(--ink);}
+  .btn-sm{font-size:13px; padding:8px 14px;}
+  .btn-danger{background:#FDE7E7; color:var(--red);}
+  .btn-block{width:100%;}
+
+  /* ── 레시피 목록 ── */
+  .topbar{display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;}
+  .topbar .spacer{flex:1;}
+  .search-box{position:relative; margin-bottom:14px;}
+  .search-box input{
+    width:100%; padding:13px 42px 13px 18px;
+    font-family:inherit; font-size:15px;
+    border:none; border-radius:999px;
+    background:var(--card); box-shadow:var(--shadow);
+  }
+  .search-box input:focus{outline:2px solid var(--pink);}
+  .search-clear{
+    position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    border:none; background:var(--pink-soft); color:var(--pink-deep);
+    width:26px; height:26px; border-radius:50%; cursor:pointer;
+    font-size:12px; display:none;
+  }
+  .recipe-card{
+    background:var(--card); border-radius:var(--radius);
+    padding:18px 16px 16px; margin-bottom:14px;
+    box-shadow:var(--shadow);
+    border-top:5px solid var(--cat, #8F7BE0);
+  }
+  .recipe-card h3{
+    font-family:'Jua', sans-serif; font-weight:400; font-size:20px; margin-bottom:4px;
+  }
+  .cat{
+    display:inline-block; font-size:12px; font-weight:700;
+    color:var(--cat, #8F7BE0); background:var(--cat-soft, #EEEAFB);
+    padding:3px 12px; border-radius:999px; margin-bottom:10px;
+  }
+  .ing-list{list-style:none; margin-bottom:8px;}
+  .ing-list li{
+    display:flex; justify-content:space-between;
+    padding:7px 0; border-bottom:1px dashed var(--line);
+    font-size:14px;
+  }
+  .ing-list li span:last-child{color:var(--ink-soft); font-weight:500;}
+  .steps{
+    font-size:13px; color:#222; white-space:pre-wrap;
+    margin-top:8px; background:#FCF8F9; border-radius:10px; padding:10px 12px;
+  }
+  .card-actions{display:flex; gap:8px; margin-top:12px;}
+  .empty{
+    text-align:center; color:var(--ink-soft); padding:40px 0; font-size:14px;
+  }
+
+  /* ── 레시피 입력 폼 ── */
+  .form-box{
+    background:var(--card); border-radius:var(--radius);
+    padding:20px; margin-bottom:16px; box-shadow:var(--shadow);
+  }
+  .form-box h3{font-family:'Jua', sans-serif; font-weight:400; margin-bottom:10px;}
+  label{display:block; font-size:13px; font-weight:700; margin:12px 0 6px;}
+  label small{font-weight:400; color:var(--ink-soft);}
+  input[type=text], textarea{
+    width:100%; padding:12px 13px; font-family:inherit; font-size:15px;
+    border:1.5px solid var(--line); border-radius:12px; background:#FFFCFB;
+  }
+  input:focus, textarea:focus{outline:none; border-color:var(--pink);}
+  textarea{resize:vertical; min-height:90px;}
+  .form-actions{display:flex; gap:8px; margin-top:16px;}
+  .color-grid{
+    display:flex; flex-wrap:wrap; gap:8px; padding:4px 2px;
+  }
+  .color-swatch{
+    width:26px; height:26px; border-radius:50%;
+    border:none; cursor:pointer; padding:0; flex:none;
+  }
+  .color-swatch.auto{
+    width:auto; min-width:38px; padding:0 8px; border-radius:999px;
+    background:#fff; border:1.5px dashed var(--ink-soft);
+    color:var(--ink-soft); font-size:10px; font-weight:700; font-family:inherit;
+  }
+  .color-swatch.sel{
+    outline:2.5px solid var(--ink); outline-offset:2px;
+  }
+
+  /* ── 플래시카드 ── */
+  .fc-stage{perspective:1200px; margin-bottom:16px;}
+  .fc-card{
+    position:relative; width:100%; min-height:340px;
+    transform-style:preserve-3d; transition:transform .5s;
+    cursor:pointer;
+  }
+  .fc-card.flip{transform:rotateY(180deg);}
+  .fc-face{
+    position:absolute; inset:0; backface-visibility:hidden;
+    background:var(--card); border-radius:24px; padding:26px 22px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    box-shadow:var(--shadow);
+    border-top:6px solid var(--cat, #8F7BE0);
+  }
+  .fc-front .name{
+    font-family:'Jua', sans-serif; font-weight:400; font-size:32px;
+    text-align:center;
+  }
+  .fc-back{transform:rotateY(180deg); justify-content:flex-start; overflow-y:auto;}
+  .fc-back h4{
+    font-family:'Jua', sans-serif; font-weight:400; font-size:20px;
+    margin-bottom:12px; color:var(--cat, #8F7BE0);
+  }
+  .fc-back .ing-list{width:100%;}
+  .fc-back .steps{align-self:stretch;}
+  .fc-nav{display:flex; gap:8px; align-items:center; justify-content:center;}
+  .fc-count{font-size:14px; font-weight:700; color:var(--ink-soft); min-width:70px; text-align:center;}
+
+  @media (prefers-reduced-motion: reduce){
+    .fc-card{transition:none;}
+  }
+
+  /* ── 퀴즈 ── */
+  .cup{
+    display:flex; align-items:center; gap:10px; margin-bottom:16px;
+  }
+  .cup .glass{
+    flex:1; height:16px; border-radius:999px; overflow:hidden;
+    background:var(--card); box-shadow:inset 0 1px 4px rgba(0,0,0,.06);
+  }
+  .cup .liquid{
+    height:100%; width:0%; border-radius:999px;
+    background:linear-gradient(90deg, var(--pink), var(--peach));
+    transition:width .4s;
+  }
+  .cup .label{font-size:13px; font-weight:700; color:var(--pink-deep);}
+  .q-box{
+    background:var(--card); border-radius:var(--radius);
+    padding:20px; margin-bottom:14px; box-shadow:var(--shadow);
+  }
+  .q-box .q-type{
+    font-size:12px; font-weight:700; color:var(--pink-deep);
+    letter-spacing:1px; margin-bottom:8px;
+  }
+  .q-box .q-text{font-size:17px; font-weight:700; line-height:1.5; margin-bottom:6px;}
+  .q-box .q-ing{
+    background:#FDF3F0; border-radius:14px; padding:14px;
+    font-size:14px; margin-top:8px; line-height:2.1;
+  }
+  .blank{
+    display:inline-block; min-width:64px; text-align:center;
+    border:1.5px solid var(--ink-soft); border-radius:10px;
+    background:#fff; padding:2px 10px;
+    color:var(--ink-soft); font-weight:700;
+  }
+  .blank.active{
+    border-color:var(--pink-deep); color:var(--pink-deep);
+    background:var(--pink-soft); border-width:2px;
+  }
+  .blank.done{
+    border-color:var(--mint); color:var(--mint);
+    background:var(--mint-soft);
+  }
+  .blank.miss{
+    border-color:var(--red); color:var(--red);
+    background:#FDE7E7;
+  }
+  .choices{display:flex; flex-direction:column; gap:10px;}
+  .choice{
+    background:var(--card); border:1.5px solid transparent;
+    border-radius:14px; padding:14px 16px; font-size:15px;
+    font-family:inherit; text-align:left; cursor:pointer;
+    box-shadow:var(--shadow);
+  }
+  .choice:not(:disabled):active{border-color:var(--pink);}
+  .choice.correct{border-color:var(--mint); background:var(--mint-soft); font-weight:700; box-shadow:none;}
+  .choice.wrong{border-color:var(--red); background:#FDE7E7; box-shadow:none;}
+  .q-next{margin-top:14px; text-align:center;}
+  .result{
+    text-align:center; background:var(--card);
+    border-radius:var(--radius); padding:36px 20px; box-shadow:var(--shadow);
+  }
+  .result .score{
+    font-family:'Jua', sans-serif; font-weight:400; font-size:46px;
+    color:var(--pink-deep); margin:10px 0;
+  }
+  .result p{color:var(--ink-soft); font-size:14px; margin-bottom:20px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">MY RECIPE BOOK</div>
+    <h1>음료 레시피 퀴즈</h1>
+    <div class="dots"><span></span><span></span><span></span></div>
+  </header>
+
+  <div class="tabs">
+    <button class="on" data-tab="flash" onclick="showTab('flash')">플래시카드</button>
+    <button data-tab="quiz" onclick="showTab('quiz')">퀴즈</button>
+  </div>
+  <div class="manage-row">
+    <button class="manage-btn" onclick="showTab('recipes')">🛠 레시피 수정·추가</button>
+  </div>
+
+  <!-- ── 레시피 탭 ── -->
+  <div class="panel" id="panel-recipes">
+    <div class="topbar">
+      <button class="btn btn-main btn-sm" onclick="openForm()">+ 추가</button>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔍 메뉴명 · 재료 · 카테고리 검색" oninput="renderList()">
+      <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+    </div>
+
+    <div class="form-box" id="formBox" style="display:none">
+      <h3 id="formTitle">레시피 추가</h3>
+      <label>음료 이름</label>
+      <input type="text" id="fName" placeholder="예: 바닐라라떼">
+      <label>카테고리 <small>(선택)</small></label>
+      <input type="text" id="fCat" placeholder="예: 커피 / 에이드 / 티">
+      <label>재료 <small>— 한 줄에 하나씩, "재료명 양" 형식</small></label>
+      <textarea id="fIng" placeholder="에스프레소 2샷&#10;우유 200ml&#10;바닐라시럽 2펌프"></textarea>
+      <label>만드는 법 <small>(선택)</small></label>
+      <textarea id="fSteps" placeholder="1. 컵에 시럽을 넣는다&#10;2. 에스프레소를 붓는다&#10;3. 스팀우유를 붓는다"></textarea>
+      <label>메뉴 색상 <small>(선택 — 안 고르면 자동)</small></label>
+      <div class="color-grid" id="colorGrid"></div>
+      <div class="form-actions">
+        <button class="btn btn-green" style="flex:1" onclick="saveRecipe()">저장</button>
+        <button class="btn btn-line" onclick="closeForm()">취소</button>
+      </div>
+    </div>
+
+    <div id="recipeList"></div>
+  </div>
+
+  <!-- ── 플래시카드 탭 ── -->
+  <div class="panel on" id="panel-flash">
+    <div class="search-box">
+      <input type="text" id="fcSearchInput" placeholder="🔍 메뉴명 · 재료 · 카테고리 검색" oninput="fcApplyFilter()">
+      <button class="search-clear" id="fcSearchClear" onclick="fcClearSearch()">✕</button>
+    </div>
+    <div id="flashArea"></div>
+  </div>
+
+  <!-- ── 퀴즈 탭 ── -->
+  <div class="panel" id="panel-quiz">
+    <div id="quizArea"></div>
+  </div>
+</div>
+
+<script>
+// ───────── 데이터 ─────────
+const DEFAULT_RECIPES = [
+  {name:"복숭아스무디", cat:"스무디", ing:[["우유","200ml"],["요거트","3래들"],["복숭아베이스","3펌프"],["얼음","2스쿱"]], steps:"1. 갈갈갈\n2. 컵 벽면에 복숭아베이스 1펌프\n3. 담기"},
+  {name:"애플머스켓스무디", cat:"스무디", ing:[["우유","200ml"],["요거트","3래들"],["애플머스켓베이스","3펌프"],["얼음","2스쿱"]], steps:"1. 갈갈갈\n2. 컵 벽면에 애플머스캣베이스 1펌프\n3. 담기"},
+  {name:"블루베리스무디", cat:"스무디", ing:[["우유","200ml"],["요거트","3래들"],["블루베리베이스","3펌프"],["얼음","2스쿱"]], steps:"1. 갈갈갈\n2. 컵 벽면에 블루베리베이스 1펌프\n3. 담기"},
+  {name:"자몽톡톡스무디", cat:"스무디", ing:[["물","200ml"],["자몽톡톡베이스","4펌프"],["얼음","2스쿱"],["자몽셀","1스푼"]], steps:"1. 갈갈갈\n2. 컵 벽면에 자몽톡톡베이스 1펌프\n3. 담기\n4. 자몽셀 1스푼 (추가 시 1스푼 추가)"},
+  {name:"부스터에이드", cat:"에이드", ing:[["부스터베이스","2펌프"],["레몬","1조각"],["얼음",""],["제로사이다",""]], steps:""},
+  {name:"메가에이드", cat:"에이드", ing:[["메가에이드베이스","2펌프"],["과일 3종","2조각씩"],["얼음",""],["사이다",""]], steps:"1. 베이스 + 과일 절구질\n2. 얼음, 사이다 넣기"},
+  {name:"수박주스", cat:"주스", ing:[["수박주스","300ml"],["냉동수박다이스","2스쿱"],["얼음",""]], steps:"1. 갈갈갈\n2. 얼음\n3. 담기"},
+  {name:"저당꿀배 XO야쿠르트", cat:"야쿠르트", ing:[["꿀배베이스","컵 밑선"],["요구르트","2개"],["얼음",""]], steps:""}
+];
+const STORAGE_KEY = 'drinkQuizRecipes_v1';
+
+function loadRecipes(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      if(Array.isArray(data) && data.length > 0) return data;
+    }
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_RECIPES));
+}
+function saveRecipes(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
+  }catch(e){}
+}
+
+let recipes = loadRecipes();
+let editIndex = -1;
+
+// ───────── 탭 ─────────
+function showTab(t){
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab===t));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('panel-'+t).classList.add('on');
+  if(t==='flash') initFlash();
+  if(t==='quiz') initQuiz();
+}
+
+// ───────── 레시피 목록 ─────────
+function renderList(){
+  const box = document.getElementById('recipeList');
+  const term = document.getElementById('searchInput').value.trim().toLowerCase();
+  document.getElementById('searchClear').style.display = term ? 'block' : 'none';
+  if(recipes.length===0){
+    box.innerHTML = '<div class="empty">아직 레시피가 없어요.<br>"+ 레시피 추가"를 눌러 첫 레시피를 등록해보세요!</div>';
+    return;
+  }
+  const shown = recipes
+    .map((r,i)=>({r,i}))
+    .filter(({r})=>{
+      if(!term) return true;
+      const hay = [r.name, r.cat, ...r.ing.map(x=>x[0])].join(' ').toLowerCase();
+      return hay.includes(term);
+    });
+  if(shown.length===0){
+    box.innerHTML = `<div class="empty">"${esc(term)}" 검색 결과가 없어요 🥤</div>`;
+    return;
+  }
+  box.innerHTML = shown.map(({r,i})=>`
+    <div class="recipe-card" style="${catStyle(r)}">
+      <h3>${esc(r.name)}</h3>
+      ${r.cat ? `<span class="cat">${esc(r.cat)}</span>` : ''}
+      <ul class="ing-list">
+        ${r.ing.map(x=>`<li><span>${esc(x[0])}</span><span>${esc(x[1])}</span></li>`).join('')}
+      </ul>
+      ${r.steps ? `<div class="steps">${esc(r.steps)}</div>` : ''}
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(${i})">수정</button>
+      </div>
+    </div>`).join('');
+}
+function clearSearch(){
+  document.getElementById('searchInput').value = '';
+  renderList();
+}
+function esc(s){return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+const PALETTE = [
+  '#F26B8A', // 라즈베리핑크
+  '#F7907B', // 복숭아
+  '#F25C4D', // 자몽
+  '#EF4B4B', // 수박레드
+  '#E91E63', // 진분홍
+  '#F58220', // 주황
+  '#FFB300', // 귤/망고
+  '#DFAF1F', // 황금
+  '#C08A00', // 진한황금
+  '#8CB832', // 샤인머스캣 연두
+  '#4CAF50', // 초록
+  '#2FB08C', // 민트그린
+  '#6FE0C8', // 밝은 민트
+  '#00ACC1', // 청록
+  '#3BB8D8', // 하늘
+  '#4A7FD9', // 파랑
+  '#5C6BC0', // 남보라
+  '#8E5BC8', // 보라
+  '#B14FA8', // 포도 자주
+  '#8D6E63', // 카페 브라운
+  '#4E342E', // 다크브라운
+  '#78909C'  // 그레이블루
+];
+function softOf(hex){
+  const n = parseInt(hex.slice(1), 16);
+  const r = (n>>16)&255, g = (n>>8)&255, b = n&255;
+  const mix = v => Math.round(v + (255-v)*0.86);
+  return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
+}
+let fSelColor = null;
+function renderColorGrid(){
+  const grid = document.getElementById('colorGrid');
+  grid.innerHTML =
+    `<button type="button" class="color-swatch auto${!fSelColor?' sel':''}" onclick="pickColor(null)" title="자동">자동</button>` +
+    PALETTE.map(c=>
+      `<button type="button" class="color-swatch${fSelColor===c?' sel':''}" style="background:${c}" onclick="pickColor('${c}')"></button>`
+    ).join('');
+}
+function pickColor(c){
+  fSelColor = c;
+  renderColorGrid();
+}
+function catStyle(r){
+  // 1순위: 사용자가 직접 고른 색
+  if(r.color){
+    return `--cat:${r.color};--cat-soft:${softOf(r.color)}`;
+  }
+  // 메뉴별 전용 색상 (해당 과일 색)
+  const menuMap = {
+    '복숭아스무디':        ['#F7907B','#FDEBE6'],  // 복숭아 살구빛
+    '애플머스켓스무디':    ['#8CB832','#F2F8DF'],  // 샤인머스캣 연두
+    '블루베리스무디':      ['#8E5BC8','#F0E8F9'],  // 보라색
+    '자몽톡톡스무디':      ['#F25C4D','#FDE7E4'],  // 자몽 레드오렌지
+    '부스터에이드':        ['#C08A00','#FAF0D0'],  // 진한 황금색
+    '메가에이드':          ['#F58220','#FDEEDC'],  // 주황색
+    '수박주스':            ['#EF4B4B','#FDE5E5'],  // 수박 레드
+    '저당꿀배 XO야쿠르트': ['#DFAF1F','#FBF3D6']   // 황금색
+  };
+  const catMap = {
+    '스무디':   ['#F26B8A','#FDE8EE'],
+    '에이드':   ['#2FB08C','#E0F6EF'],
+    '주스':     ['#EF5350','#FDE7E7'],
+    '야쿠르트': ['#E8A13B','#FCF1DC']
+  };
+  const c = menuMap[r.name] || catMap[r.cat] || ['#8F7BE0','#EEEAFB'];
+  return `--cat:${c[0]};--cat-soft:${c[1]}`;
+}
+
+// ───────── 폼 ─────────
+function openForm(i){
+  editIndex = (i===undefined) ? -1 : i;
+  document.getElementById('formTitle').textContent = editIndex<0 ? '레시피 추가' : '레시피 수정';
+  const r = editIndex<0 ? null : recipes[editIndex];
+  document.getElementById('fName').value = r ? r.name : '';
+  document.getElementById('fCat').value = r ? r.cat : '';
+  fSelColor = (r && r.color) ? r.color : null;
+  renderColorGrid();
+  document.getElementById('fIng').value = r ? r.ing.map(x=>(x[0]+' '+x[1]).trim()).join('\n') : '';
+  document.getElementById('fSteps').value = r ? r.steps : '';
+  document.getElementById('formBox').style.display = 'block';
+  document.getElementById('fName').focus();
+  window.scrollTo({top:0});
+}
+function closeForm(){ document.getElementById('formBox').style.display='none'; }
+function saveRecipe(){
+  const name = document.getElementById('fName').value.trim();
+  const ingText = document.getElementById('fIng').value.trim();
+  if(!name){ alert('음료 이름을 입력해주세요.'); return; }
+  if(!ingText){ alert('재료를 한 개 이상 입력해주세요.'); return; }
+  const ing = ingText.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{
+    const sp = l.indexOf(' ');
+    return sp>0 ? [l.slice(0,sp), l.slice(sp+1).trim()] : [l, ''];
+  });
+  const r = {
+    name,
+    cat: document.getElementById('fCat').value.trim(),
+    color: fSelColor,
+    ing,
+    steps: document.getElementById('fSteps').value.trim()
+  };
+  if(editIndex<0) recipes.push(r); else recipes[editIndex]=r;
+  saveRecipes(); // 자동 저장
+  closeForm(); renderList();
+}
+// ───────── 플래시카드 ─────────
+let fcOrder = [], fcIdx = 0, fcShowBack = false;
+function initFlash(){
+  fcShowBack = true;
+  fcApplyFilter();
+}
+function fcApplyFilter(){
+  const area = document.getElementById('flashArea');
+  if(recipes.length===0){
+    area.innerHTML = '<div class="empty">레시피를 먼저 등록해주세요!</div>';
+    return;
+  }
+  const term = document.getElementById('fcSearchInput').value.trim().toLowerCase();
+  document.getElementById('fcSearchClear').style.display = term ? 'block' : 'none';
+  fcOrder = recipes
+    .map((r,i)=>({r,i}))
+    .filter(({r})=>{
+      if(!term) return true;
+      const hay = [r.name, r.cat, ...r.ing.map(x=>x[0])].join(' ').toLowerCase();
+      return hay.includes(term);
+    })
+    .map(({i})=>i);
+  if(fcOrder.length===0){
+    area.innerHTML = `<div class="empty">"${esc(term)}" 검색 결과가 없어요 🥤</div>`;
+    return;
+  }
+  fcIdx = 0;
+  fcShowBack = true;
+  renderFlash();
+}
+function fcClearSearch(){
+  document.getElementById('fcSearchInput').value = '';
+  fcApplyFilter();
+}
+function renderFlash(){
+  const r = recipes[fcOrder[fcIdx]];
+  document.getElementById('flashArea').innerHTML = `
+    <div class="fc-stage">
+      <div class="fc-card${fcShowBack?' flip':''}" id="fcCard" style="${catStyle(r)}" onclick="this.classList.toggle('flip')">
+        <div class="fc-face fc-front">
+          <div class="name">${esc(r.name)}</div>
+          ${r.cat?`<span class="cat" style="margin-top:10px">${esc(r.cat)}</span>`:''}
+        </div>
+        <div class="fc-face fc-back">
+          <h4>${esc(r.name)}</h4>
+          <ul class="ing-list">
+            ${r.ing.map(x=>`<li><span>${esc(x[0])}</span><span>${esc(x[1])}</span></li>`).join('')}
+          </ul>
+          ${r.steps?`<div class="steps">${esc(r.steps)}</div>`:''}
+        </div>
+      </div>
+    </div>
+    <div class="fc-nav">
+      <button class="btn btn-line" onclick="fcMove(-1)">◀ 이전</button>
+      <div class="fc-count">${fcIdx+1} / ${fcOrder.length}</div>
+      <button class="btn btn-line" onclick="fcMove(1)">다음 ▶</button>
+    </div>
+    <div style="text-align:center; margin-top:12px">
+      <button class="btn btn-green btn-sm" onclick="fcShuffle()">🔀 섞기</button>
+    </div>`;
+}
+function fcMove(d){
+  fcIdx = (fcIdx + d + fcOrder.length) % fcOrder.length;
+  fcShowBack = true;
+  renderFlash();
+}
+function fcShuffle(){
+  for(let i=fcOrder.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [fcOrder[i],fcOrder[j]]=[fcOrder[j],fcOrder[i]];
+  }
+  fcIdx = 0; fcShowBack = true; renderFlash();
+}
+
+// ───────── 퀴즈 ─────────
+let quiz = [], qIdx = 0, bIdx = 0, qScore = 0, totalBlanks = 0;
+function initQuiz(){
+  const area = document.getElementById('quizArea');
+  if(recipes.length < 4){
+    area.innerHTML = '<div class="empty">퀴즈를 만들려면 레시피가 <b>4개 이상</b> 필요해요.<br>레시피 탭에서 더 추가해주세요!</div>';
+    return;
+  }
+  area.innerHTML = `
+    <div class="q-box" style="text-align:center">
+      <div class="q-text" style="margin-bottom:14px">등록된 레시피 ${recipes.length}개로<br>퀴즈를 시작할까요?</div>
+      <button class="btn btn-main btn-block" onclick="startQuiz()">퀴즈 시작 ☕</button>
+    </div>`;
+}
+function pickN(arr, n){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a.slice(0,n);
+}
+function startQuiz(){
+  quiz = []; qIdx = 0; bIdx = 0; qScore = 0; totalBlanks = 0;
+  const count = Math.min(10, recipes.length);
+  const targets = pickN(recipes.map((_,i)=>i), count);
+  const allAmounts = [...new Set(recipes.flatMap(r=>r.ing.map(x=>x[1])).filter(Boolean))];
+  targets.forEach(ti=>{
+    const r = recipes[ti];
+    const others = recipes.filter((_,i)=>i!==ti);
+    const otherNames = [...new Set(others.flatMap(o=>o.ing.map(x=>x[0])))]
+      .filter(n=>!r.ing.some(x=>x[0]===n));
+    const nameOk = otherNames.length >= 3;
+
+    // 메뉴당 빈칸 2개(재료가 1개뿐이면 1개) 뽑기
+    const blankCount = Math.min(2, r.ing.length);
+    const idxs = pickN(r.ing.map((_,i)=>i), blankCount).sort((a,b)=>a-b);
+    const blanks = [];
+    idxs.forEach(bi=>{
+      const x = r.ing[bi];
+      const amtOk = x[1] && allAmounts.filter(a=>a!==x[1]).length >= 3;
+      let mode;
+      if(nameOk && amtOk) mode = Math.random()<0.5 ? 'name' : 'amt';
+      else if(amtOk) mode = 'amt';
+      else if(nameOk) mode = 'name';
+      else return;
+      let answer, wrongs;
+      if(mode==='amt'){
+        answer = x[1];
+        wrongs = pickN(allAmounts.filter(a=>a!==answer), 3);
+      }else{
+        answer = x[0];
+        wrongs = pickN(otherNames, 3);
+      }
+      blanks.push({idx:bi, mode, answer, choices:pickN([answer, ...wrongs], 4), state:'pending', correct:null});
+    });
+    if(blanks.length===0) return;
+    totalBlanks += blanks.length;
+    quiz.push({title:r.name, ing:r.ing, blanks});
+  });
+  if(quiz.length===0){
+    document.getElementById('quizArea').innerHTML =
+      '<div class="empty">빈칸 문제를 만들기에 레시피 정보가 부족해요.<br>레시피를 더 추가해주세요!</div>';
+    return;
+  }
+  renderQ();
+}
+const CIRCLED = ['①','②'];
+function renderQ(){
+  const q = quiz[qIdx];
+  const b = q.blanks[bIdx];
+  const pct = Math.round(qIdx / quiz.length * 100);
+  const lines = q.ing.map((x,i)=>{
+    const bi = q.blanks.findIndex(bb=>bb.idx===i);
+    if(bi < 0) return esc((x[0]+' '+x[1]).trim());
+    const bb = q.blanks[bi];
+    let cls = 'blank', txt = CIRCLED[bi];
+    if(bb.state==='done'){ cls += bb.correct ? ' done' : ' miss'; txt = esc(bb.answer); }
+    else if(bi===bIdx) cls += ' active';
+    const box = `<span class="${cls}">${txt}</span>`;
+    return bb.mode==='amt'
+      ? `${esc(x[0])} ${box}`
+      : `${box}${x[1] ? ' '+esc(x[1]) : ''}`;
+  });
+  document.getElementById('quizArea').innerHTML = `
+    <div class="cup">
+      <div class="glass"><div class="liquid" style="width:${pct}%"></div></div>
+      <div class="label">${qIdx+1}/${quiz.length}</div>
+    </div>
+    <div class="q-box">
+      <div class="q-type">빈칸 채우기</div>
+      <div class="q-text">"${esc(q.title)}" — 빈칸 ${CIRCLED[bIdx]}에 들어갈 ${b.mode==='amt'?'양':'재료'}는?</div>
+      <div class="q-ing">${lines.join('<br>')}</div>
+    </div>
+    <div class="choices" id="choices">
+      ${b.choices.map(c=>`<button class="choice" onclick="answer(this,'${esc(c).replace(/'/g,"\\'")}')">${esc(c)}</button>`).join('')}
+    </div>
+    <div class="q-next" id="qNext"></div>`;
+}
+let audioCtx;
+function playWrong(){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = 'square';
+    o.frequency.setValueAtTime(220, audioCtx.currentTime);
+    o.frequency.setValueAtTime(160, audioCtx.currentTime + 0.13);
+    g.gain.setValueAtTime(0.18, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime + 0.35);
+  }catch(e){}
+}
+function answer(btn, chosen){
+  const q = quiz[qIdx];
+  const b = q.blanks[bIdx];
+  document.querySelectorAll('.choice').forEach(el=>{
+    el.disabled = true;
+    if(el.textContent === b.answer) el.classList.add('correct');
+  });
+  b.state = 'done';
+  b.correct = (chosen === b.answer);
+  if(b.correct){
+    qScore++;
+    setTimeout(nextStep, 700); // 정답이면 바로 다음으로
+  }else{
+    playWrong(); // 오답 사운드
+    btn.classList.add('wrong');
+    const isLastBlank = bIdx === q.blanks.length-1;
+    const isLastQ = qIdx === quiz.length-1;
+    const label = !isLastBlank ? '다음 빈칸 ▶' : (isLastQ ? '결과 보기' : '다음 문제 ▶');
+    document.getElementById('qNext').innerHTML =
+      `<button class="btn btn-green" onclick="nextStep()">${label}</button>`;
+  }
+}
+function nextStep(){
+  const q = quiz[qIdx];
+  if(bIdx < q.blanks.length-1){
+    bIdx++;
+    renderQ();
+  }else{
+    qIdx++; bIdx = 0;
+    if(qIdx >= quiz.length) showResult(); else renderQ();
+  }
+}
+function showResult(){
+  const msg = qScore===totalBlanks ? '완벽해요! 레시피 마스터 🏆'
+    : qScore >= totalBlanks*0.7 ? '훌륭해요! 조금만 더 하면 완벽 ☕'
+    : '괜찮아요, 플래시카드로 복습하고 다시 도전해요!';
+  document.getElementById('quizArea').innerHTML = `
+    <div class="result">
+      <div style="font-size:13px; font-weight:700; color:var(--accent-deep); letter-spacing:2px">RESULT</div>
+      <div class="score">${qScore} / ${totalBlanks}</div>
+      <p>${msg}</p>
+      <button class="btn btn-main btn-block" onclick="startQuiz()">다시 도전</button>
+    </div>`;
+}
+
+renderList();
+initFlash();
+</script>
+</body>
+</html>
