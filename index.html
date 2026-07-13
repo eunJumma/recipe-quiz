@@ -159,6 +159,21 @@
   input:focus, textarea:focus{outline:none; border-color:var(--pink);}
   textarea{resize:vertical; min-height:90px;}
   .form-actions{display:flex; gap:8px; margin-top:16px;}
+  .color-grid{
+    display:grid; grid-template-columns:repeat(7, 1fr);
+    gap:10px; padding:4px 2px;
+  }
+  .color-swatch{
+    width:100%; aspect-ratio:1; border-radius:50%;
+    border:none; cursor:pointer; padding:0;
+  }
+  .color-swatch.auto{
+    background:#fff; border:2px dashed var(--ink-soft);
+    color:var(--ink-soft); font-size:10px; font-weight:700; font-family:inherit;
+  }
+  .color-swatch.sel{
+    outline:3px solid var(--ink); outline-offset:2px;
+  }
 
   /* ── 플래시카드 ── */
   .fc-stage{perspective:1200px; margin-bottom:16px;}
@@ -297,6 +312,8 @@
       <textarea id="fIng" placeholder="에스프레소 2샷&#10;우유 200ml&#10;바닐라시럽 2펌프"></textarea>
       <label>만드는 법 <small>(선택)</small></label>
       <textarea id="fSteps" placeholder="1. 컵에 시럽을 넣는다&#10;2. 에스프레소를 붓는다&#10;3. 스팀우유를 붓는다"></textarea>
+      <label>메뉴 색상 <small>(선택 — 안 고르면 자동)</small></label>
+      <div class="color-grid" id="colorGrid"></div>
       <div class="form-actions">
         <button class="btn btn-green" style="flex:1" onclick="saveRecipe()">저장</button>
         <button class="btn btn-line" onclick="closeForm()">취소</button>
@@ -401,7 +418,52 @@ function clearSearch(){
   renderList();
 }
 function esc(s){return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+const PALETTE = [
+  '#F26B8A', // 라즈베리핑크
+  '#F7907B', // 복숭아
+  '#F25C4D', // 자몽
+  '#EF4B4B', // 수박레드
+  '#E91E63', // 진분홍
+  '#F58220', // 주황
+  '#FFB300', // 귤/망고
+  '#DFAF1F', // 황금
+  '#C08A00', // 진한황금
+  '#8CB832', // 샤인머스캣 연두
+  '#4CAF50', // 초록
+  '#2FB08C', // 민트
+  '#00ACC1', // 청록
+  '#3BB8D8', // 하늘
+  '#4A7FD9', // 파랑
+  '#5C6BC0', // 남보라
+  '#8E5BC8', // 보라
+  '#B14FA8', // 포도 자주
+  '#8D6E63', // 카페 브라운
+  '#78909C'  // 그레이블루
+];
+function softOf(hex){
+  const n = parseInt(hex.slice(1), 16);
+  const r = (n>>16)&255, g = (n>>8)&255, b = n&255;
+  const mix = v => Math.round(v + (255-v)*0.86);
+  return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
+}
+let fSelColor = null;
+function renderColorGrid(){
+  const grid = document.getElementById('colorGrid');
+  grid.innerHTML =
+    `<button type="button" class="color-swatch auto${!fSelColor?' sel':''}" onclick="pickColor(null)" title="자동">자동</button>` +
+    PALETTE.map(c=>
+      `<button type="button" class="color-swatch${fSelColor===c?' sel':''}" style="background:${c}" onclick="pickColor('${c}')"></button>`
+    ).join('');
+}
+function pickColor(c){
+  fSelColor = c;
+  renderColorGrid();
+}
 function catStyle(r){
+  // 1순위: 사용자가 직접 고른 색
+  if(r.color){
+    return `--cat:${r.color};--cat-soft:${softOf(r.color)}`;
+  }
   // 메뉴별 전용 색상 (해당 과일 색)
   const menuMap = {
     '복숭아스무디':        ['#F7907B','#FDEBE6'],  // 복숭아 살구빛
@@ -430,6 +492,8 @@ function openForm(i){
   const r = editIndex<0 ? null : recipes[editIndex];
   document.getElementById('fName').value = r ? r.name : '';
   document.getElementById('fCat').value = r ? r.cat : '';
+  fSelColor = (r && r.color) ? r.color : null;
+  renderColorGrid();
   document.getElementById('fIng').value = r ? r.ing.map(x=>(x[0]+' '+x[1]).trim()).join('\n') : '';
   document.getElementById('fSteps').value = r ? r.steps : '';
   document.getElementById('formBox').style.display = 'block';
@@ -449,6 +513,7 @@ function saveRecipe(){
   const r = {
     name,
     cat: document.getElementById('fCat').value.trim(),
+    color: fSelColor,
     ing,
     steps: document.getElementById('fSteps').value.trim()
   };
