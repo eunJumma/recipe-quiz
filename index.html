@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko"><plasmo-csui></plasmo-csui><head>
+<html lang="ko"><plasmo-csui></plasmo-csui><head></head><body><plasmo-csui></plasmo-csui>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -113,6 +113,18 @@
     border:none; background:var(--pink-soft); color:var(--pink-deep);
     width:26px; height:26px; border-radius:50%; cursor:pointer;
     font-size:12px; display:none;
+  }
+  .cat-row{
+    display:flex; flex-wrap:wrap; gap:8px;
+    padding:2px 2px 10px; margin-bottom:8px;
+  }
+  .cat-chip{
+    flex:none; border:none; cursor:pointer;
+    border-radius:999px; padding:8px 14px;
+    font-family:inherit; font-size:13px; font-weight:700;
+  }
+  .cat-chip.on{
+    box-shadow:0 3px 8px rgba(0,0,0,.18);
   }
   .recipe-card{
     background:var(--card); border-radius:var(--radius);
@@ -272,8 +284,8 @@
   }
   .result p{color:var(--ink-soft); font-size:14px; margin-bottom:20px;}
 </style>
-</head>
-<body>
+
+
 <div class="wrap">
   <header>
     <div class="eyebrow">MY RECIPE BOOK</div>
@@ -301,9 +313,10 @@
       <input type="text" id="searchInput" placeholder="🔍 메뉴명 · 재료 · 카테고리 검색" oninput="renderList()">
       <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display: none;">✕</button>
     </div>
+    <div class="cat-row" id="listCatRow"></div>
 
     <div class="form-box" id="formBox" style="display: none;">
-      <h3 id="formTitle">레시피 추가</h3>
+      <h3 id="formTitle">레시피 수정</h3>
       <label>음료 이름</label>
       <input type="text" id="fName" placeholder="예: 바닐라라떼">
       <label>카테고리 <small>(선택)</small></label>
@@ -327,7 +340,7 @@
     <div id="recipeList">
     <div class="recipe-card" style="--cat:#F7907B;--cat-soft:#FDEBE6">
       <h3>복숭아스무디</h3>
-      <span class="cat">스무디</span>
+      <span class="cat">스무디&amp;프라페</span>
       <ul class="ing-list">
         <li>우유 200ml</li><li>요거트 3래들</li><li>복숭아베이스 3P</li><li>얼음 2스쿱</li>
       </ul>
@@ -338,9 +351,9 @@
         <button class="btn btn-line btn-sm" onclick="openForm(0)">수정</button>
       </div>
     </div>
-    <div class="recipe-card" style="--cat:#F26B8A;--cat-soft:#FDE8EE">
+    <div class="recipe-card" style="--cat:#4CAF50;--cat-soft:rgb(230,244,231)">
       <h3>애플머스캣스무디</h3>
-      <span class="cat">스무디</span>
+      <span class="cat">스무디&amp;프라페</span>
       <ul class="ing-list">
         <li>우유 200ml</li><li>요거트 3래들</li><li>애플머스캣베이스 3P</li><li>얼음 2스쿱</li>
       </ul>
@@ -353,7 +366,7 @@
     </div>
     <div class="recipe-card" style="--cat:#8E5BC8;--cat-soft:#F0E8F9">
       <h3>블루베리스무디</h3>
-      <span class="cat">스무디</span>
+      <span class="cat">스무디&amp;프라페</span>
       <ul class="ing-list">
         <li>우유 200ml</li><li>요거트 3래들</li><li>블루베리베이스 3P</li><li>얼음 2스쿱</li>
       </ul>
@@ -364,8 +377,8 @@
         <button class="btn btn-line btn-sm" onclick="openForm(2)">수정</button>
       </div>
     </div>
-    <div class="recipe-card" style="--cat:#F25C4D;--cat-soft:#FDE7E4">
-      <h3>자몽톡톡스무디</h3>
+    <div class="recipe-card" style="--cat:#F26B8A;--cat-soft:#FDE8EE">
+      <h3>스무디&amp;프라페</h3>
       <span class="cat">스무디</span>
       <ul class="ing-list">
         <li>물 200ml</li><li>자몽톡톡베이스 4P</li><li>얼음 2스쿱</li>
@@ -382,7 +395,7 @@
       <h3>부스터에이드</h3>
       <span class="cat">에이드</span>
       <ul class="ing-list">
-        <li>부스터베이스 2P</li><li>레몬 1조각</li><li>얼음</li><li>제로사이다</li>
+        <li>부스터베이스 2P</li><li>레몬슬라이스 1개</li><li>얼음</li><li>제로사이다</li>
       </ul>
       
       <div class="card-actions">
@@ -393,7 +406,7 @@
       <h3>메가에이드</h3>
       <span class="cat">에이드</span>
       <ul class="ing-list">
-        <li>메가에이드베이스 2P</li><li>과일 3종 2조각씩</li><li>콩콩콩</li><li>얼음</li><li>사이다</li>
+        <li>메가에이드베이스 2P</li><li>과일슬라이스 3종 2개씩</li><li>콩콩콩</li><li>얼음</li><li>사이다</li>
       </ul>
       
       <div class="card-actions">
@@ -422,15 +435,147 @@
         <button class="btn btn-line btn-sm" onclick="openForm(7)">수정</button>
       </div>
     </div>
-    <div class="recipe-card" style="--cat:#2FB08C;--cat-soft:#E0F6EF">
+    <div class="recipe-card" style="--cat:#8CB832;--cat-soft:rgb(239,245,226)">
       <h3>라임모히또</h3>
       <span class="cat">에이드</span>
       <ul class="ing-list">
-        <li>모히또시럽 4P</li><li>라임시럽 3P</li><li>라임 4조각</li><li>민트 한 줌</li><li>콩콩콩</li><li>얼음</li><li>사이다</li><li>섞기</li>
+        <li>모히또시럽 4P</li><li>라임시럽 3P</li><li>라임슬라이스 4개</li><li>민트 한 줌</li><li>콩콩콩</li><li>얼음</li><li>사이다</li>
       </ul>
       
       <div class="card-actions">
         <button class="btn btn-line btn-sm" onclick="openForm(8)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#4E342E;--cat-soft:rgb(230,227,226)">
+      <h3>HOT 카라멜마끼아또</h3>
+      <span class="cat">커피</span>
+      <ul class="ing-list">
+        <li>카라멜시럽 3P</li><li>에스프레소 2샷</li><li>우유스팀 두껍게</li><li>카라멜드리즐</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(9)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#4E342E;--cat-soft:rgb(230,227,226)">
+      <h3>아이스 카라멜마끼아또</h3>
+      <span class="cat">커피</span>
+      <ul class="ing-list">
+        <li>카라멜시럽 4P</li><li>에스프레소 2샷</li><li>우유거품기</li><li>카라멜드리즐</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(10)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#4CAF50;--cat-soft:rgb(230,244,231)">
+      <h3>녹차베이스</h3>
+      <span class="cat">베이스</span>
+      <ul class="ing-list">
+        <li>뜨거운 물 500ml</li><li>녹차파우더 500g</li><li>갈갈갈</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(11)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#8D6E63;--cat-soft:rgb(239,235,233)">
+      <h3>초코베이스</h3>
+      <span class="cat">베이스</span>
+      <ul class="ing-list">
+        <li>뜨거운 물 1100ml</li><li>초코파우더 1봉</li><li>갈갈갈</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(12)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#E91E63;--cat-soft:rgb(252,224,233)">
+      <h3>체리베이스</h3>
+      <span class="cat">베이스</span>
+      <ul class="ing-list">
+        <li>뜨거운 물 500ml</li><li>체리파우더 1통</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(13)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#F25C4D;--cat-soft:rgb(253,232,230)">
+      <h3>아이스티베이스</h3>
+      <span class="cat">베이스</span>
+      <ul class="ing-list">
+        <li>뜨거운 물 900ml</li><li>아이스티파우더 1봉</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(14)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#4E342E;--cat-soft:rgb(230,227,226)">
+      <h3>할메가커피베이스</h3>
+      <span class="cat">베이스</span>
+      <ul class="ing-list">
+        <li>뜨거운 물 1000ml</li><li>할커피파우더 400g</li><li>얼음 630g</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(15)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#3BB8D8;--cat-soft:rgb(228,245,250)">
+      <h3>쿠키베이스</h3>
+      <span class="cat">베이스</span>
+      <ul class="ing-list">
+        <li>우유 900ml</li><li>쿠키베이스파우더 425g</li><li>갈갈갈</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(16)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#E91E63;--cat-soft:rgb(252,224,233)">
+      <h3>체리콕</h3>
+      <span class="cat">에이드</span>
+      <ul class="ing-list">
+        <li>체리베이스 컵 밑선</li><li>얼음</li><li>콜라</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(17)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#FFB300;--cat-soft:rgb(255,244,219)">
+      <h3>레몬에이드</h3>
+      <span class="cat">에이드</span>
+      <ul class="ing-list">
+        <li>레몬베이스 2P</li><li>시럽 1P</li><li>얼음</li><li>사이더</li><li>레몬슬라이스 1개</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(18)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#4A7FD9;--cat-soft:rgb(230,237,250)">
+      <h3>블루레몬에이드</h3>
+      <span class="cat">에이드</span>
+      <ul class="ing-list">
+        <li>블루큐라소 2P</li><li>레몬베이스 2P</li><li>얼음</li><li>사이다</li><li>레몬슬라이스 1개</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(19)">수정</button>
+      </div>
+    </div>
+    <div class="recipe-card" style="--cat:#EF4B4B;--cat-soft:rgb(253,230,230)">
+      <h3>자몽에이드</h3>
+      <span class="cat">에이드</span>
+      <ul class="ing-list">
+        <li>자몽베이스 1P</li><li>자몽시럽 1P</li><li>설탕시럽 1P</li><li>얼음</li><li>사이다</li><li>자몽슬라이스 1개</li>
+      </ul>
+      
+      <div class="card-actions">
+        <button class="btn btn-line btn-sm" onclick="openForm(20)">수정</button>
       </div>
     </div></div>
   </div>
@@ -441,6 +586,7 @@
       <input type="text" id="fcSearchInput" placeholder="🔍 메뉴명 · 재료 · 카테고리 검색" oninput="fcApplyFilter()">
       <button class="search-clear" id="fcSearchClear" onclick="fcClearSearch()" style="display: none;">✕</button>
     </div>
+    <div class="cat-row" id="fcCatRow"></div>
     <div id="flashArea">
     <div class="fc-stage">
       <div class="fc-card flip" id="fcCard" style="--cat:#F7907B;--cat-soft:#FDEBE6" onclick="this.classList.toggle('flip')">
@@ -451,17 +597,17 @@
         <div class="fc-face fc-back">
           <h4>복숭아스무디</h4>
           <ul class="ing-list">
-            <li>우유 200ml</li><li>요거트 3래들</li><li>복숭아베이스 3펌프</li><li>얼음 2스쿱</li>
+            <li>우유 200ml</li><li>요거트 3래들</li><li>복숭아베이스 3P</li><li>얼음 2스쿱</li>
           </ul>
           <div class="steps">1. 갈갈갈
-2. 컵 벽면에 복숭아베이스 1펌프
+2. 컵 벽면에 복숭아베이스 1P
 3. 담기</div>
         </div>
       </div>
     </div>
     <div class="fc-nav">
       <button class="btn btn-line" onclick="fcMove(-1)">◀ 이전</button>
-      <div class="fc-count">1 / 8</div>
+      <div class="fc-count">1 / 11</div>
       <button class="btn btn-line" onclick="fcMove(1)">다음 ▶</button>
     </div>
     <div style="text-align:center; margin-top:12px">
@@ -475,7 +621,7 @@
   </div>
 </div>
 
-<script id="recipeData" type="application/json">[{"name":"복숭아스무디","cat":"스무디","color":null,"ing":[["우유","200ml"],["요거트","3래들"],["복숭아베이스","3P"],["얼음","2스쿱"]],"steps":"1. 갈갈갈\n2. 컵 벽면에 복숭아베이스 1P\n3. 담기"},{"name":"애플머스캣스무디","cat":"스무디","color":null,"ing":[["우유","200ml"],["요거트","3래들"],["애플머스캣베이스","3P"],["얼음","2스쿱"]],"steps":"1. 갈갈갈\n2. 컵 벽면에 애플머스캣베이스 1P\n3. 담기"},{"name":"블루베리스무디","cat":"스무디","color":null,"ing":[["우유","200ml"],["요거트","3래들"],["블루베리베이스","3P"],["얼음","2스쿱"]],"steps":"1. 갈갈갈\n2. 컵 벽면에 블루베리베이스 1P\n3. 담기"},{"name":"자몽톡톡스무디","cat":"스무디","color":null,"ing":[["물","200ml"],["자몽톡톡베이스","4P"],["얼음","2스쿱"]],"steps":"1. 갈갈갈\n2. 컵 벽면에 자몽톡톡베이스 1P\n3. 담기\n4. 자몽셀 1스푼 토핑 (옵션추가 시 1스푼씩 추가)"},{"name":"부스터에이드","cat":"에이드","color":null,"ing":[["부스터베이스","2P"],["레몬","1조각"],["얼음",""],["제로사이다",""]],"steps":""},{"name":"메가에이드","cat":"에이드","color":null,"ing":[["메가에이드베이스","2P"],["과일","3종 2조각씩"],["콩콩콩",""],["얼음",""],["사이다",""]],"steps":""},{"name":"수박주스","cat":"주스","color":null,"ing":[["수박주스","300ml"],["냉동수박다이스","2스쿱"],["갈갈갈",""],["얼음",""],["담기",""]],"steps":""},{"name":"저당꿀배 XO야쿠르트","cat":"에이드","color":null,"ing":[["꿀배베이스","컵 밑선"],["얼음",""],["요구르트","2개"]],"steps":""},{"name":"라임모히또","cat":"에이드","color":null,"ing":[["모히또시럽","4P"],["라임시럽","3P"],["라임","4조각"],["민트","한 줌"],["콩콩콩",""],["얼음",""],["사이다",""],["섞기",""]],"steps":""}]</script>
+<script id="recipeData" type="application/json">[{"name":"복숭아스무디","cat":"스무디&프라페","color":null,"ing":[["우유","200ml"],["요거트","3래들"],["복숭아베이스","3P"],["얼음","2스쿱"]],"steps":"1. 갈갈갈\n2. 컵 벽면에 복숭아베이스 1P\n3. 담기"},{"name":"애플머스캣스무디","cat":"스무디&프라페","color":"#4CAF50","ing":[["우유","200ml"],["요거트","3래들"],["애플머스캣베이스","3P"],["얼음","2스쿱"]],"steps":"1. 갈갈갈\n2. 컵 벽면에 애플머스캣베이스 1P\n3. 담기"},{"name":"블루베리스무디","cat":"스무디&프라페","color":null,"ing":[["우유","200ml"],["요거트","3래들"],["블루베리베이스","3P"],["얼음","2스쿱"]],"steps":"1. 갈갈갈\n2. 컵 벽면에 블루베리베이스 1P\n3. 담기"},{"name":"스무디&프라페","cat":"스무디","color":null,"ing":[["물","200ml"],["자몽톡톡베이스","4P"],["얼음","2스쿱"]],"steps":"1. 갈갈갈\n2. 컵 벽면에 자몽톡톡베이스 1P\n3. 담기\n4. 자몽셀 1스푼 토핑 (옵션추가 시 1스푼씩 추가)"},{"name":"부스터에이드","cat":"에이드","color":null,"ing":[["부스터베이스","2P"],["레몬슬라이스","1개"],["얼음",""],["제로사이다",""]],"steps":""},{"name":"메가에이드","cat":"에이드","color":null,"ing":[["메가에이드베이스","2P"],["과일슬라이스","3종 2개씩"],["콩콩콩",""],["얼음",""],["사이다",""]],"steps":""},{"name":"수박주스","cat":"주스","color":null,"ing":[["수박주스","300ml"],["냉동수박다이스","2스쿱"],["갈갈갈",""],["얼음",""],["담기",""]],"steps":""},{"name":"저당꿀배 XO야쿠르트","cat":"에이드","color":null,"ing":[["꿀배베이스","컵 밑선"],["얼음",""],["요구르트","2개"]],"steps":""},{"name":"라임모히또","cat":"에이드","color":"#8CB832","ing":[["모히또시럽","4P"],["라임시럽","3P"],["라임슬라이스","4개"],["민트","한 줌"],["콩콩콩",""],["얼음",""],["사이다",""]],"steps":""},{"name":"HOT 카라멜마끼아또","cat":"커피","color":"#4E342E","ing":[["카라멜시럽","3P"],["에스프레소","2샷"],["우유스팀","두껍게"],["카라멜드리즐",""]],"steps":""},{"name":"아이스 카라멜마끼아또","cat":"커피","color":"#4E342E","ing":[["카라멜시럽","4P"],["에스프레소","2샷"],["우유거품기",""],["카라멜드리즐",""]],"steps":""},{"name":"녹차베이스","cat":"베이스","color":"#4CAF50","ing":[["뜨거운","물 500ml"],["녹차파우더","500g"],["갈갈갈",""]],"steps":""},{"name":"초코베이스","cat":"베이스","color":"#8D6E63","ing":[["뜨거운","물 1100ml"],["초코파우더","1봉"],["갈갈갈",""]],"steps":""},{"name":"체리베이스","cat":"베이스","color":"#E91E63","ing":[["뜨거운","물 500ml"],["체리파우더","1통"]],"steps":""},{"name":"아이스티베이스","cat":"베이스","color":"#F25C4D","ing":[["뜨거운","물 900ml"],["아이스티파우더","1봉"]],"steps":""},{"name":"할메가커피베이스","cat":"베이스","color":"#4E342E","ing":[["뜨거운","물 1000ml"],["할커피파우더","400g"],["얼음","630g"]],"steps":""},{"name":"쿠키베이스","cat":"베이스","color":"#3BB8D8","ing":[["우유","900ml"],["쿠키베이스파우더","425g"],["갈갈갈",""]],"steps":""},{"name":"체리콕","cat":"에이드","color":"#E91E63","ing":[["체리베이스","컵 밑선"],["얼음",""],["콜라",""]],"steps":""},{"name":"레몬에이드","cat":"에이드","color":"#FFB300","ing":[["레몬베이스","2P"],["시럽","1P"],["얼음",""],["사이더",""],["레몬슬라이스","1개"]],"steps":""},{"name":"블루레몬에이드","cat":"에이드","color":"#4A7FD9","ing":[["블루큐라소","2P"],["레몬베이스","2P"],["얼음",""],["사이다",""],["레몬슬라이스","1개"]],"steps":""},{"name":"자몽에이드","cat":"에이드","color":"#EF4B4B","ing":[["자몽베이스","1P"],["자몽시럽","1P"],["설탕시럽","1P"],["얼음",""],["사이다",""],["자몽슬라이스","1개"]],"steps":""}]</script>
 <script>
 // ───────── 데이터 ─────────
 const STORAGE_KEY = 'drinkQuizRecipes_v1';
@@ -531,6 +677,40 @@ function showTab(t){
 }
 
 // ───────── 레시피 목록 ─────────
+// ───────── 카테고리 버튼 ─────────
+const FIXED_CATS = ['커피','Non 커피','에이드','스무디&프라페','주스','Tea','흑당','콜드브루','베이스'];
+const CAT_COLORS = {
+  '전체':        '#41333F',  // 잉크
+  '커피':        '#8D6E63',  // 카페 브라운
+  'Non 커피':    '#8E5BC8',  // 보라
+  '에이드':      '#2FB08C',  // 민트
+  '스무디&프라페':'#F26B8A', // 핑크
+  '주스':        '#EF4B4B',  // 레드
+  'Tea':         '#4CAF50',  // 그린
+  '흑당':        '#C08A00',  // 진한황금
+  '콜드브루':    '#4E342E',  // 다크브라운
+  '베이스':      '#4A7FD9'   // 파랑
+};
+let listCat = '전체', fcCat = '전체';
+function allCats(){
+  const extra = [...new Set(recipes.map(r=>r.cat).filter(Boolean))]
+    .filter(c=>!FIXED_CATS.includes(c));
+  return ['전체', ...FIXED_CATS, ...extra];
+}
+function renderCatRows(){
+  const mk = (sel, fn) => allCats().map(c=>{
+    const col = CAT_COLORS[c] || '#78909C';
+    const style = sel===c
+      ? `background:${col};color:#fff`
+      : `background:${softOf(col)};color:${col}`;
+    return `<button class="cat-chip${sel===c?' on':''}" style="${style}" data-cat="${esc(c)}" onclick="${fn}(this.dataset.cat)">${esc(c)}</button>`;
+  }).join('');
+  document.getElementById('listCatRow').innerHTML = mk(listCat, 'setListCat');
+  document.getElementById('fcCatRow').innerHTML = mk(fcCat, 'setFcCat');
+}
+function setListCat(c){ listCat = c; renderCatRows(); renderList(); }
+function setFcCat(c){ fcCat = c; renderCatRows(); fcShowBack = true; fcApplyFilter(); }
+
 function renderList(){
   const box = document.getElementById('recipeList');
   const term = document.getElementById('searchInput').value.trim().toLowerCase();
@@ -542,12 +722,15 @@ function renderList(){
   const shown = recipes
     .map((r,i)=>({r,i}))
     .filter(({r})=>{
+      if(listCat!=='전체' && r.cat!==listCat) return false;
       if(!term) return true;
       const hay = [r.name, r.cat, ...r.ing.map(x=>x[0])].join(' ').toLowerCase();
       return hay.includes(term);
     });
   if(shown.length===0){
-    box.innerHTML = `<div class="empty">"${esc(term)}" 검색 결과가 없어요 🥤</div>`;
+    box.innerHTML = term
+      ? `<div class="empty">"${esc(term)}" 검색 결과가 없어요 🥤</div>`
+      : `<div class="empty">"${esc(listCat)}" 카테고리에 메뉴가 없어요 🥤</div>`;
     return;
   }
   box.innerHTML = shown.map(({r,i})=>`
@@ -671,7 +854,7 @@ function saveRecipe(){
   };
   if(editIndex<0) recipes.push(r); else recipes[editIndex]=r;
   saveRecipes(); // 자동 저장
-  closeForm(); renderList();
+  closeForm(); renderCatRows(); renderList();
 }
 // ───────── 플래시카드 ─────────
 let fcOrder = [], fcIdx = 0, fcShowBack = false;
@@ -690,13 +873,16 @@ function fcApplyFilter(){
   fcOrder = recipes
     .map((r,i)=>({r,i}))
     .filter(({r})=>{
+      if(fcCat!=='전체' && r.cat!==fcCat) return false;
       if(!term) return true;
       const hay = [r.name, r.cat, ...r.ing.map(x=>x[0])].join(' ').toLowerCase();
       return hay.includes(term);
     })
     .map(({i})=>i);
   if(fcOrder.length===0){
-    area.innerHTML = `<div class="empty">"${esc(term)}" 검색 결과가 없어요 🥤</div>`;
+    area.innerHTML = term
+      ? `<div class="empty">"${esc(term)}" 검색 결과가 없어요 🥤</div>`
+      : `<div class="empty">"${esc(fcCat)}" 카테고리에 메뉴가 없어요 🥤</div>`;
     return;
   }
   fcIdx = 0;
@@ -903,6 +1089,7 @@ function showResult(){
     </div>`;
 }
 
+renderCatRows();
 renderList();
 showTab('flash');
 </script>
