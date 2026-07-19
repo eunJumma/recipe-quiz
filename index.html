@@ -311,9 +311,9 @@
 
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="🔍 메뉴명 · 재료 · 카테고리 검색" oninput="renderList()">
-      <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display: none;">✕</button>
+      <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display: block;">✕</button>
     </div>
-    <div class="cat-row" id="listCatRow"><button class="cat-chip" style="background:rgb(228,226,228);color:#41333F" data-cat="전체" onclick="setListCat(this.dataset.cat)">전체</button><button class="cat-chip" style="background:rgb(239,235,233);color:#8D6E63" data-cat="커피" onclick="setListCat(this.dataset.cat)">커피</button><button class="cat-chip" style="background:rgb(239,232,247);color:#8E5BC8" data-cat="Non 커피" onclick="setListCat(this.dataset.cat)">Non 커피</button><button class="cat-chip" style="background:rgb(226,244,239);color:#2FB08C" data-cat="에이드" onclick="setListCat(this.dataset.cat)">에이드</button><button class="cat-chip on" style="background:#F26B8A;color:#fff" data-cat="스무디&amp;프라페" onclick="setListCat(this.dataset.cat)">스무디&amp;프라페</button><button class="cat-chip" style="background:rgb(253,230,230);color:#EF4B4B" data-cat="주스" onclick="setListCat(this.dataset.cat)">주스</button><button class="cat-chip" style="background:rgb(230,244,231);color:#4CAF50" data-cat="Tea" onclick="setListCat(this.dataset.cat)">Tea</button><button class="cat-chip" style="background:rgb(246,239,219);color:#C08A00" data-cat="흑당" onclick="setListCat(this.dataset.cat)">흑당</button><button class="cat-chip" style="background:rgb(230,227,226);color:#4E342E" data-cat="콜드브루" onclick="setListCat(this.dataset.cat)">콜드브루</button><button class="cat-chip" style="background:rgb(230,237,250);color:#4A7FD9" data-cat="베이스" onclick="setListCat(this.dataset.cat)">베이스</button></div>
+    <div class="cat-row" id="listCatRow"><button class="cat-chip on" style="background:#41333F;color:#fff" data-cat="전체" onclick="setListCat(this.dataset.cat)">전체</button><button class="cat-chip" style="background:rgb(239,235,233);color:#8D6E63" data-cat="커피" onclick="setListCat(this.dataset.cat)">커피</button><button class="cat-chip" style="background:rgb(239,232,247);color:#8E5BC8" data-cat="Non 커피" onclick="setListCat(this.dataset.cat)">Non 커피</button><button class="cat-chip" style="background:rgb(226,244,239);color:#2FB08C" data-cat="에이드" onclick="setListCat(this.dataset.cat)">에이드</button><button class="cat-chip" style="background:rgb(253,234,239);color:#F26B8A" data-cat="스무디&amp;프라페" onclick="setListCat(this.dataset.cat)">스무디&amp;프라페</button><button class="cat-chip" style="background:rgb(253,230,230);color:#EF4B4B" data-cat="주스" onclick="setListCat(this.dataset.cat)">주스</button><button class="cat-chip" style="background:rgb(230,244,231);color:#4CAF50" data-cat="Tea" onclick="setListCat(this.dataset.cat)">Tea</button><button class="cat-chip" style="background:rgb(246,239,219);color:#C08A00" data-cat="흑당" onclick="setListCat(this.dataset.cat)">흑당</button><button class="cat-chip" style="background:rgb(230,227,226);color:#4E342E" data-cat="콜드브루" onclick="setListCat(this.dataset.cat)">콜드브루</button><button class="cat-chip" style="background:rgb(230,237,250);color:#4A7FD9" data-cat="베이스" onclick="setListCat(this.dataset.cat)">베이스</button></div>
 
     <div class="form-box" id="formBox" style="display: none;">
       <h3 id="formTitle">레시피 수정</h3>
@@ -330,7 +330,7 @@
 2. 에스프레소를 붓는다
 3. 스팀우유를 붓는다"></textarea>
       <label>메뉴 색상 <small>(선택 — 안 고르면 자동)</small></label>
-      <div class="color-grid" id="colorGrid"><button type="button" class="color-swatch auto" onclick="pickColor(null)" title="자동">자동</button><button type="button" class="color-swatch" style="background:#F26B8A" onclick="pickColor('#F26B8A')"></button><button type="button" class="color-swatch" style="background:#F7907B" onclick="pickColor('#F7907B')"></button><button type="button" class="color-swatch" style="background:#F25C4D" onclick="pickColor('#F25C4D')"></button><button type="button" class="color-swatch" style="background:#EF4B4B" onclick="pickColor('#EF4B4B')"></button><button type="button" class="color-swatch" style="background:#E91E63" onclick="pickColor('#E91E63')"></button><button type="button" class="color-swatch" style="background:#F58220" onclick="pickColor('#F58220')"></button><button type="button" class="color-swatch sel" style="background:#FFB300" onclick="pickColor('#FFB300')"></button><button type="button" class="color-swatch" style="background:#DFAF1F" onclick="pickColor('#DFAF1F')"></button><button type="button" class="color-swatch" style="background:#C08A00" onclick="pickColor('#C08A00')"></button><button type="button" class="color-swatch" style="background:#8CB832" onclick="pickColor('#8CB832')"></button><button type="button" class="color-swatch" style="background:#4CAF50" onclick="pickColor('#4CAF50')"></button><button type="button" class="color-swatch" style="background:#2FB08C" onclick="pickColor('#2FB08C')"></button><button type="button" class="color-swatch" style="background:#6FE0C8" onclick="pickColor('#6FE0C8')"></button><button type="button" class="color-swatch" style="background:#00ACC1" onclick="pickColor('#00ACC1')"></button><button type="button" class="color-swatch" style="background:#3BB8D8" onclick="pickColor('#3BB8D8')"></button><button type="button" class="color-swatch" style="background:#4A7FD9" onclick="pickColor('#4A7FD9')"></button><button type="button" class="color-swatch" style="background:#5C6BC0" onclick="pickColor('#5C6BC0')"></button><button type="button" class="color-swatch" style="background:#8E5BC8" onclick="pickColor('#8E5BC8')"></button><button type="button" class="color-swatch" style="background:#B14FA8" onclick="pickColor('#B14FA8')"></button><button type="button" class="color-swatch" style="background:#8D6E63" onclick="pickColor('#8D6E63')"></button><button type="button" class="color-swatch" style="background:#4E342E" onclick="pickColor('#4E342E')"></button><button type="button" class="color-swatch" style="background:#78909C" onclick="pickColor('#78909C')"></button></div>
+      <div class="color-grid" id="colorGrid"><button type="button" class="color-swatch auto" onclick="pickColor(null)" title="자동">자동</button><button type="button" class="color-swatch" style="background:#F26B8A" onclick="pickColor('#F26B8A')"></button><button type="button" class="color-swatch" style="background:#F7907B" onclick="pickColor('#F7907B')"></button><button type="button" class="color-swatch" style="background:#F25C4D" onclick="pickColor('#F25C4D')"></button><button type="button" class="color-swatch" style="background:#EF4B4B" onclick="pickColor('#EF4B4B')"></button><button type="button" class="color-swatch" style="background:#E91E63" onclick="pickColor('#E91E63')"></button><button type="button" class="color-swatch" style="background:#F58220" onclick="pickColor('#F58220')"></button><button type="button" class="color-swatch" style="background:#FFB300" onclick="pickColor('#FFB300')"></button><button type="button" class="color-swatch" style="background:#DFAF1F" onclick="pickColor('#DFAF1F')"></button><button type="button" class="color-swatch" style="background:#C08A00" onclick="pickColor('#C08A00')"></button><button type="button" class="color-swatch" style="background:#8CB832" onclick="pickColor('#8CB832')"></button><button type="button" class="color-swatch" style="background:#4CAF50" onclick="pickColor('#4CAF50')"></button><button type="button" class="color-swatch" style="background:#2FB08C" onclick="pickColor('#2FB08C')"></button><button type="button" class="color-swatch" style="background:#6FE0C8" onclick="pickColor('#6FE0C8')"></button><button type="button" class="color-swatch" style="background:#00ACC1" onclick="pickColor('#00ACC1')"></button><button type="button" class="color-swatch" style="background:#3BB8D8" onclick="pickColor('#3BB8D8')"></button><button type="button" class="color-swatch" style="background:#4A7FD9" onclick="pickColor('#4A7FD9')"></button><button type="button" class="color-swatch" style="background:#5C6BC0" onclick="pickColor('#5C6BC0')"></button><button type="button" class="color-swatch" style="background:#8E5BC8" onclick="pickColor('#8E5BC8')"></button><button type="button" class="color-swatch" style="background:#B14FA8" onclick="pickColor('#B14FA8')"></button><button type="button" class="color-swatch sel" style="background:#8D6E63" onclick="pickColor('#8D6E63')"></button><button type="button" class="color-swatch" style="background:#4E342E" onclick="pickColor('#4E342E')"></button><button type="button" class="color-swatch" style="background:#78909C" onclick="pickColor('#78909C')"></button></div>
       <div class="form-actions">
         <button class="btn btn-green" style="flex:1" onclick="saveRecipe()">저장</button>
         <button class="btn btn-line" onclick="closeForm()">취소</button>
@@ -338,312 +338,15 @@
     </div>
 
     <div id="recipeList">
-    <div class="recipe-card" style="--cat:#F7907B;--cat-soft:rgb(254,239,237)">
-      <h3>복숭아 퐁당 요거트 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>우유 200ml</li><li>요거트파우더 3래들</li><li>복숭아베이스 3P</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 벽면 복숭아베이스 1P</li><li>담기</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(0)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#4CAF50;--cat-soft:rgb(230,244,231)">
-      <h3>애플 머스캣 요거트 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>우유 200ml</li><li>요거트파우더 3래들</li><li>애플머스캣베이스 3P</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 벽면 애플머스캣베이스 1P</li><li>담기</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(1)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#5C6BC0;--cat-soft:rgb(232,234,246)">
-      <h3>블루베리 요거트 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>우유 200ml</li><li>요거트파우더 3래들</li><li>블루베리베이스 3P</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 벽면 블루베리베이스 1P</li><li>담기</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(2)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#EF4B4B;--cat-soft:rgb(253,230,230)">
-      <h3>자몽 톡톡 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>물 200ml</li><li>자몽톡톡베이스 4P</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 벽면 자몽톡톡베이스 1P</li><li>담기</li><li>자몽셀 1스푼 토핑 (옵션추가 시 1스푼씩 추가)</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(3)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#3BB8D8;--cat-soft:rgb(228,245,250)">
-      <h3>플레인 요거트 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>우유 250ml</li><li>요거트파우더 6래들</li><li>설탕시럽 1P</li><li>얼음 2스쿱</li><li>갈갈갈</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(38)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#F58220;--cat-soft:rgb(254,238,224)">
-      <h3>망고 요거트 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>우유 250ml</li><li>요거트파우더 3래들</li><li>골드망고베이스 1P</li><li>해동망고 10개</li><li>얼음 2스쿱</li><li>갈갈갈</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(39)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#E91E63;--cat-soft:rgb(252,224,233)">
-      <h3>딸기 요거트 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>우유 150ml</li><li>가당딸기 150ml</li><li>요거트파우더 3래들</li><li>얼음 2스쿱</li><li>갈갈갈</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(40)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#E91E63;--cat-soft:rgb(252,224,233)">
-      <h3>스트로베리 치즈 홀릭</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>우유 150ml</li><li>가당딸기 150ml</li><li>요거트파우더 3래들</li><li>설탕시럽 1P</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>휘핑</li><li>치즈큐브 6개</li><li>딸기분태</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(41)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#FFB300;--cat-soft:rgb(255,244,219)">
-      <h3>골드 망고 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>물 150ml</li><li>골드망고베이스 3.5P</li><li>해동망고 6개</li><li>얼음 2스쿱</li><li>갈갈갈</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(42)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#8D6E63;--cat-soft:rgb(239,235,233)">
-      <h3>코코넛 커피 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>코코넛베이스 250ml</li><li>코코넛칩 1래들</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 바닥 식힌 샷 50ml</li><li>담기</li><li>코코넛칩 1래들 토핑</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(43)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#8D6E63;--cat-soft:rgb(239,235,233)">
-      <h3>쿠키 프라페</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>쿠키베이스 300ml</li><li>쿠키분태 3래들</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 바닥 쿠키분태 1래들</li><li>담기</li><li>휘핑</li><li>오레오 2개</li><li>쿠키분태 톡톡톡</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(45)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#E91E63;--cat-soft:rgb(252,224,233)">
-      <h3>딸기 쿠키 프라페</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>쿠키베이스 150ml</li><li>우유 150ml</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>딸기소스 2P</li><li>마블링</li><li>컵 바닥 쿠키분태 2래들</li><li>담기</li><li>휘핑</li><li>딸기분태</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(46)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#8D6E63;--cat-soft:rgb(239,235,233)">
-      <h3>리얼 초코 프라페</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>쿠키베이스 100ml</li><li>초코베이스 150ml</li><li>초콜릿칩 1래들</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>휘핑</li><li>초코&amp;카라멜드리즐</li><li>딸기분태</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(47)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#4CAF50;--cat-soft:rgb(230,244,231)">
-      <h3>녹차 프라페</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>쿠키베이스 150ml</li><li>녹차베이스 150ml</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>휘핑</li><li>녹차파우더 톡톡</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(48)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#4E342E;--cat-soft:rgb(230,227,226)">
-      <h3>커피 프라페</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>쿠키베이스 250ml</li><li>식힌 샷 2샷</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>휘핑</li><li>카라멜드리즐</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(49)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#6FE0C8;--cat-soft:rgb(235,251,247)">
-      <h3>민트 프라페</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>우유 150ml</li><li>민트파우더 5래들</li><li>민트시럽 3P</li><li>초콜릿칩 1래들</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>휘핑</li><li>딸기 분태 톡톡톡</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(50)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#8E5BC8;--cat-soft:rgb(239,232,247)">
-      <h3>유니콘 프라페</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>쿠키베이스 150ml</li><li>우유 100ml</li><li>그라데이션파우더 2래들</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 벽에 블루소스드리즐 불규칙하게 삥~삥~</li><li>절반 담기</li><li>레몬즙 한바퀴</li><li>나머지 담기</li><li>휘핑</li><li>레몬즙 톡톡</li><li>그라데이션파우더 톡톡</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(51)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#C08A00;--cat-soft:rgb(246,239,219)">
-      <h3>플레인퐁 크러쉬</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>쿠키베이스 150ml</li><li>우유 150ml</li><li>설탕시럽 1P</li><li>죠리퐁 1컵</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 밑선 죠리퐁</li><li>담기</li><li>죠리퐁 가득 토핑</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(52)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#FFB300;--cat-soft:rgb(255,244,219)">
-      <h3>바나나퐁 크러쉬</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>쿠키베이스 150ml</li><li>우유 150ml</li><li>설탕시럽 1P</li><li>죠리퐁 1컵</li><li>바나나파우더 2래들</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 밑선 죠리퐁</li><li>담기</li><li>죠리퐁 가득 토핑</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(53)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#E91E63;--cat-soft:rgb(252,224,233)">
-      <h3>딸기퐁 크러쉬</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>쿠키베이스 150ml</li><li>우유 150ml</li><li>딸기소스 1P</li><li>죠리퐁 1컵</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 밑선 죠리퐁</li><li>담기</li><li>죠리퐁 가득 토핑</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(54)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#8D6E63;--cat-soft:rgb(239,235,233)">
-      <h3>초코 허니퐁 크러쉬</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>쿠키베이스 150ml</li><li>우유 150ml</li><li>죠리퐁 1컵</li><li>초코파우더 2래들</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>담기</li><li>허니퐁 가득 토핑</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(55)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#FFB300;--cat-soft:rgb(255,244,219)">
-      <h3>슈크림 허니퐁 크러쉬</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>쿠키베이스 150ml</li><li>우유 150ml</li><li>죠리퐁 1컵</li><li>슈크림파우더 3래들</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>담기</li><li>허니퐁 가득 토핑</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(56)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#8E5BC8;--cat-soft:rgb(239,232,247)">
-      <h3>포도 녹차 젤리 크러쉬</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>물 100ml</li><li>포도그린티베이스 4.5P</li><li>얼음 1컵</li><li>1번 버튼 갈갈갈</li><li>그린알로에 워터젤리 컵 밑선</li><li>담기</li><li>잘 저어서 드세요</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(59)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#F25C4D;--cat-soft:rgb(253,232,230)">
-      <h3>멋쟁이 토마토 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>물 150ml</li><li>토마토베이스 4P</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>담기</li><li>와작펄슈가 2t래들</li><li>애플민트 토핑</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(60)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#F7907B;--cat-soft:rgb(254,239,237)">
-      <h3>복숭아 퐁당 요거트 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>우유 150ml</li><li>요거트파우더 3래들</li><li>설탕시럽 2P</li><li>백도복숭아베이스 3래들</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 벽에 백도복숭아베이스 1래들 발라발라</li><li>담기</li><li>잘 저어서 드세요</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(61)">수정</button>
-      </div>
-    </div>
     <div class="recipe-card" style="--cat:#8D6E63;--cat-soft:rgb(239,235,233)">
       <h3>팥빙 젤라또 파르페</h3>
       <span class="cat">스무디&amp;프라페</span>
       <ul class="ing-list">
-        <li>우유빙수베이스 100ml</li><li>얼음 한 컵</li><li>1번 버튼 갈갈갈</li><li>컵 바닥 빙수팥 1스쿱 탁탁탁</li><li>절반 담기</li><li>안쪽 벽 믹스씨리얼 2래들 삥~</li><li>나머지 담기</li><li>팥젤라또 1스쿱 토핑</li><li>나란히 빙수팥 1스쿱 토핑</li><li>빙수떡 1래들</li><li>믹스씨리얼 1래들</li><li>팥젤라또 위 연유드리즐</li>
+        <li>우유빙수베이스 100ml</li><li>얼음 1컵</li><li>1번 버튼 갈갈갈</li><li>컵 바닥 빙수팥 1스쿱 탁탁탁</li><li>절반 담기</li><li>안쪽 벽 믹스씨리얼 2래들 삥~</li><li>나머지 담기</li><li>팥젤라또 1스쿱 토핑</li><li>나란히 빙수팥 1스쿱 토핑</li><li>빙수떡 1래들</li><li>믹스씨리얼 1래들</li><li>팥젤라또 위 연유드리즐</li>
       </ul>
       
       <div class="card-actions">
         <button class="btn btn-line btn-sm" onclick="openForm(62)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#3BB8D8;--cat-soft:rgb(228,245,250)">
-      <h3>밀크쉐이크</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>우유 200ml</li><li>밀크파우더 5래들</li><li>얼음 2스쿱</li><li>갈갈갈</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(65)">수정</button>
-      </div>
-    </div>
-    <div class="recipe-card" style="--cat:#FFB300;--cat-soft:rgb(255,244,219)">
-      <h3>초당 옥수수 스무디</h3>
-      <span class="cat">스무디&amp;프라페</span>
-      <ul class="ing-list">
-        <li>우유 150ml</li><li>우유 빙수 베이스  50ml</li><li>설탕시럽 2P</li><li>초당 옥수수 파우더 4래들</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>담기</li><li>초당옥수수콘 2래들 토핑</li>
-      </ul>
-      
-      <div class="card-actions">
-        <button class="btn btn-line btn-sm" onclick="openForm(68)">수정</button>
       </div>
     </div></div>
   </div>
@@ -652,20 +355,20 @@
   <div class="panel" id="panel-flash">
     <div class="search-box">
       <input type="text" id="fcSearchInput" placeholder="🔍 메뉴명 · 재료 · 카테고리 검색" oninput="fcApplyFilter()">
-      <button class="search-clear" id="fcSearchClear" onclick="fcClearSearch()" style="display: none;">✕</button>
+      <button class="search-clear" id="fcSearchClear" onclick="fcClearSearch()" style="display: block;">✕</button>
     </div>
-    <div class="cat-row" id="fcCatRow"><button class="cat-chip" style="background:rgb(228,226,228);color:#41333F" data-cat="전체" onclick="setFcCat(this.dataset.cat)">전체</button><button class="cat-chip" style="background:rgb(239,235,233);color:#8D6E63" data-cat="커피" onclick="setFcCat(this.dataset.cat)">커피</button><button class="cat-chip" style="background:rgb(239,232,247);color:#8E5BC8" data-cat="Non 커피" onclick="setFcCat(this.dataset.cat)">Non 커피</button><button class="cat-chip" style="background:rgb(226,244,239);color:#2FB08C" data-cat="에이드" onclick="setFcCat(this.dataset.cat)">에이드</button><button class="cat-chip on" style="background:#F26B8A;color:#fff" data-cat="스무디&amp;프라페" onclick="setFcCat(this.dataset.cat)">스무디&amp;프라페</button><button class="cat-chip" style="background:rgb(253,230,230);color:#EF4B4B" data-cat="주스" onclick="setFcCat(this.dataset.cat)">주스</button><button class="cat-chip" style="background:rgb(230,244,231);color:#4CAF50" data-cat="Tea" onclick="setFcCat(this.dataset.cat)">Tea</button><button class="cat-chip" style="background:rgb(246,239,219);color:#C08A00" data-cat="흑당" onclick="setFcCat(this.dataset.cat)">흑당</button><button class="cat-chip" style="background:rgb(230,227,226);color:#4E342E" data-cat="콜드브루" onclick="setFcCat(this.dataset.cat)">콜드브루</button><button class="cat-chip" style="background:rgb(230,237,250);color:#4A7FD9" data-cat="베이스" onclick="setFcCat(this.dataset.cat)">베이스</button></div>
+    <div class="cat-row" id="fcCatRow"><button class="cat-chip on" style="background:#41333F;color:#fff" data-cat="전체" onclick="setFcCat(this.dataset.cat)">전체</button><button class="cat-chip" style="background:rgb(239,235,233);color:#8D6E63" data-cat="커피" onclick="setFcCat(this.dataset.cat)">커피</button><button class="cat-chip" style="background:rgb(239,232,247);color:#8E5BC8" data-cat="Non 커피" onclick="setFcCat(this.dataset.cat)">Non 커피</button><button class="cat-chip" style="background:rgb(226,244,239);color:#2FB08C" data-cat="에이드" onclick="setFcCat(this.dataset.cat)">에이드</button><button class="cat-chip" style="background:rgb(253,234,239);color:#F26B8A" data-cat="스무디&amp;프라페" onclick="setFcCat(this.dataset.cat)">스무디&amp;프라페</button><button class="cat-chip" style="background:rgb(253,230,230);color:#EF4B4B" data-cat="주스" onclick="setFcCat(this.dataset.cat)">주스</button><button class="cat-chip" style="background:rgb(230,244,231);color:#4CAF50" data-cat="Tea" onclick="setFcCat(this.dataset.cat)">Tea</button><button class="cat-chip" style="background:rgb(246,239,219);color:#C08A00" data-cat="흑당" onclick="setFcCat(this.dataset.cat)">흑당</button><button class="cat-chip" style="background:rgb(230,227,226);color:#4E342E" data-cat="콜드브루" onclick="setFcCat(this.dataset.cat)">콜드브루</button><button class="cat-chip" style="background:rgb(230,237,250);color:#4A7FD9" data-cat="베이스" onclick="setFcCat(this.dataset.cat)">베이스</button></div>
     <div id="flashArea">
     <div class="fc-stage">
-      <div class="fc-card flip" id="fcCard" style="--cat:#FFB300;--cat-soft:rgb(255,244,219)" onclick="this.classList.toggle('flip')">
+      <div class="fc-card flip" id="fcCard" style="--cat:#8D6E63;--cat-soft:rgb(239,235,233)" onclick="this.classList.toggle('flip')">
         <div class="fc-face fc-front">
-          <div class="name">초당 옥수수 스무디</div>
+          <div class="name">팥빙 젤라또 파르페</div>
           <span class="cat" style="margin-top:10px">스무디&amp;프라페</span>
         </div>
         <div class="fc-face fc-back">
-          <h4>초당 옥수수 스무디</h4>
+          <h4>팥빙 젤라또 파르페</h4>
           <ul class="ing-list">
-            <li>우유 150ml</li><li>우유 빙수 베이스  50ml</li><li>설탕시럽 2P</li><li>초당 옥수수 파우더 4래들</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>담기</li><li>초당옥수수콘 2래들 토핑</li>
+            <li>우유빙수베이스 100ml</li><li>얼음 1컵</li><li>1번 버튼 갈갈갈</li><li>컵 바닥 빙수팥 1스쿱 탁탁탁</li><li>절반 담기</li><li>안쪽 벽 믹스씨리얼 2래들 삥~</li><li>나머지 담기</li><li>팥젤라또 1스쿱 토핑</li><li>나란히 빙수팥 1스쿱 토핑</li><li>빙수떡 1래들</li><li>믹스씨리얼 1래들</li><li>팥젤라또 위 연유드리즐</li>
           </ul>
           
         </div>
@@ -673,7 +376,7 @@
     </div>
     <div class="fc-nav">
       <button class="btn btn-line" onclick="fcMove(-1)">◀ 이전</button>
-      <div class="fc-count">28 / 28</div>
+      <div class="fc-count">2 / 2</div>
       <button class="btn btn-line" onclick="fcMove(1)">다음 ▶</button>
     </div>
     <div style="text-align:center; margin-top:12px">
@@ -684,16 +387,23 @@
   <!-- ── 퀴즈 탭 ── -->
   <div class="panel" id="panel-quiz">
     <div id="quizArea">
-    <div class="result">
-      <div style="font-size:13px; font-weight:700; color:var(--accent-deep); letter-spacing:2px">RESULT</div>
-      <div class="score">19 / 20</div>
-      <p>훌륭해요! 조금만 더 하면 완벽 ☕</p>
-      <button class="btn btn-main btn-block" onclick="startQuiz()">다시 도전</button>
-    </div></div>
+    <div class="cup">
+      <div class="glass"><div class="liquid" style="width:80%"></div></div>
+      <div class="label">9/10</div>
+    </div>
+    <div class="q-box">
+      <div class="q-type">빈칸 채우기</div>
+      <div class="q-text">"포도 녹차 젤리 크러쉬" — 빈칸 ②에 들어갈 양는?</div>
+      <div class="q-ing"><span class="blank done">물</span> 100ml<br>포도그린티베이스 4.5P<br>얼음 <span class="blank active">②</span><br>1번 버튼 갈갈갈<br>그린알로에 워터젤리 컵 밑선<br>담기<br>잘 저어서 드세요</div>
+    </div>
+    <div class="choices" id="choices">
+      <button class="choice" onclick="answer(this,'1컵')">1컵</button><button class="choice" onclick="answer(this,'빙수팥 1스쿱 토핑')">빙수팥 1스쿱 토핑</button><button class="choice" onclick="answer(this,'75ml')">75ml</button><button class="choice" onclick="answer(this,'벽면 자몽톡톡베이스 1P')">벽면 자몽톡톡베이스 1P</button>
+    </div>
+    <div class="q-next" id="qNext"></div></div>
   </div>
 </div>
 
-<script id="recipeData" type="application/json">[{"name":"복숭아 퐁당 요거트 스무디","cat":"스무디&프라페","color":"#F7907B","ing":[["우유","200ml"],["요거트파우더","3래들"],["복숭아베이스","3P"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽면 복숭아베이스 1P"],["담기",""]],"steps":""},{"name":"애플 머스캣 요거트 스무디","cat":"스무디&프라페","color":"#4CAF50","ing":[["우유","200ml"],["요거트파우더","3래들"],["애플머스캣베이스","3P"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽면 애플머스캣베이스 1P"],["담기",""]],"steps":""},{"name":"블루베리 요거트 스무디","cat":"스무디&프라페","color":"#5C6BC0","ing":[["우유","200ml"],["요거트파우더","3래들"],["블루베리베이스","3P"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽면 블루베리베이스 1P"],["담기",""]],"steps":""},{"name":"자몽 톡톡 스무디","cat":"스무디&프라페","color":"#EF4B4B","ing":[["물","200ml"],["자몽톡톡베이스","4P"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽면 자몽톡톡베이스 1P"],["담기",""],["자몽셀","1스푼 토핑 (옵션추가 시 1스푼씩 추가)"]],"steps":""},{"name":"제로 부스트 에이드","cat":"에이드","color":"#DFAF1F","ing":[["부스터베이스","2P"],["레몬슬라이스","1개"],["얼음",""],["제로사이다",""]],"steps":""},{"name":"메가 에이드","cat":"에이드","color":"#F25C4D","ing":[["메가에이드베이스","2P"],["과일슬라이스","3종 각 2개씩"],["콩콩콩",""],["얼음",""],["사이다",""]],"steps":""},{"name":"수박 주스","cat":"주스","color":"#E91E63","ing":[["수박주스","300ml"],["냉동수박다이스","2스쿱"],["갈갈갈",""],["얼음",""],["담기",""]],"steps":""},{"name":"저당 꿀배 XO 야쿠르트","cat":"에이드","color":"#DFAF1F","ing":[["꿀배베이스","컵 밑선"],["얼음",""],["요구르트","2개"]],"steps":""},{"name":"라임 모히또","cat":"에이드","color":"#8CB832","ing":[["모히또시럽","4P"],["라임시럽","3P"],["라임슬라이스","4개"],["민트","한 줌"],["콩콩콩",""],["얼음",""],["사이다",""]],"steps":""},{"name":"HOT 카라멜마끼아또","cat":"커피","color":"#4E342E","ing":[["카라멜시럽","3P"],["에스프레소","2샷"],["우유스팀","두껍게"],["카라멜드리즐",""]],"steps":""},{"name":"아이스 카라멜마끼아또","cat":"커피","color":"#4E342E","ing":[["카라멜시럽","4P"],["에스프레소","2샷"],["우유거품기",""],["카라멜드리즐",""]],"steps":""},{"name":"녹차 베이스","cat":"베이스","color":"#4CAF50","ing":[["뜨거운","물 500ml"],["녹차파우더","500g"],["갈갈갈",""]],"steps":""},{"name":"초코 베이스","cat":"베이스","color":"#8D6E63","ing":[["뜨거운","물 1100ml"],["초코파우더","1봉"],["갈갈갈",""]],"steps":""},{"name":"체리 베이스","cat":"베이스","color":"#E91E63","ing":[["뜨거운","물 500ml"],["체리파우더","1통"]],"steps":""},{"name":"아이스티 베이스","cat":"베이스","color":"#F25C4D","ing":[["뜨거운","물 900ml"],["아이스티파우더","1봉"]],"steps":""},{"name":"할메가 커피  베이스","cat":"베이스","color":"#4E342E","ing":[["뜨거운","물 1000ml"],["할커피파우더","400g"],["얼음","630g"]],"steps":""},{"name":"쿠키 베이스","cat":"베이스","color":"#3BB8D8","ing":[["우유","900ml"],["쿠키베이스파우더","425g"],["갈갈갈",""]],"steps":""},{"name":"체리콕","cat":"에이드","color":"#E91E63","ing":[["체리베이스","컵 밑선"],["얼음",""],["콜라",""]],"steps":""},{"name":"레몬에이드","cat":"에이드","color":"#FFB300","ing":[["레몬베이스","2P"],["설탕시럽","1P"],["얼음",""],["사이다",""],["레몬슬라이스","1개"]],"steps":""},{"name":"블루레몬에이드","cat":"에이드","color":"#4A7FD9","ing":[["블루큐라소시럽","2P"],["레몬베이스","2P"],["얼음",""],["사이다",""],["레몬슬라이스","1개"]],"steps":""},{"name":"자몽에이드","cat":"에이드","color":"#EF4B4B","ing":[["자몽베이스","1P"],["자몽시럽","1P"],["설탕시럽","1P"],["얼음",""],["사이다",""],["자몽슬라이스","1개"]],"steps":""},{"name":"제로 레몬 말차 아이스티","cat":"에이드","color":"#8CB832","ing":[["제로레몬말차베이스","MGC선"],["물",""],["얼음",""],["레몬슬라이스","1개"]],"steps":""},{"name":"아이스 초코","cat":"Non 커피","color":"#8D6E63","ing":[["우유","300ml"],["초코파우더","4래들"],["갈갈갈",""],["얼음",""]],"steps":""},{"name":"핫초코","cat":"Non 커피","color":"#8D6E63","ing":[["초코파우더","4래들"],["우유스팀",""],["섞기",""],["코코아파우더","톡톡"]],"steps":""},{"name":"아이스 녹차라떼","cat":"Non 커피","color":"#8CB832","ing":[["녹차베이스","컵 밑선"],["얼음",""],["우유",""],["섞기",""]],"steps":""},{"name":"HOT 녹차라떼","cat":"Non 커피","color":"#8CB832","ing":[["녹차파우더","2래들"],["우유스팀",""],["섞기",""],["녹차파우더","톡톡"]],"steps":""},{"name":"초코 젤라또 말차 라떼","cat":"Non 커피","color":"#8D6E63","ing":[["녹차베이스","컵 밑선"],["컵","상단 안쪽 초코소스 삥~"],["얼음",""],["에스프레소","1샷"],["우유",""],["초코젤라또","1스쿱"]],"steps":""},{"name":"콜드브루","cat":"콜드브루","color":"#4E342E","ing":[["HOT","- 100ml"],["ICE","- 컵 밑선"]],"steps":""},{"name":"유자차","cat":"Tea","color":"#FFB300","ing":[["HOT","- 유자청 5래들"],["ICE","- 유자청 6래들"]],"steps":""},{"name":"레몬차","cat":"Tea","color":"#FFB300","ing":[["HOT","- 레몬청 5래들"],["ICD","- 레몬청 6래들"],["레몬슬라이스","1개"]],"steps":""},{"name":"자몽차","cat":"Tea","color":"#F25C4D","ing":[["HOT","- 자몽청 4래들, 설탕시럽 2P"],["ICE","- 자몽청 4래들, 설탕시럽 1P"],["자몽슬라이스","1개"]],"steps":""},{"name":"허니 자몽 블랙티","cat":"Tea","color":"#F25C4D","ing":[["얼그레이티백","1개"],["자몽청","3래들"],["꿀","1래들"],["자몽슬라이스","1개"]],"steps":""},{"name":"사과 유자차","cat":"Tea","color":"#E91E63","ing":[["애플티백","1개"],["유자청","4래들"]],"steps":""},{"name":"제로 슈가 아이스티","cat":"Tea","color":"#F7907B","ing":[["제로슈가","아이스티베이스 5P"],["물",""],["얼음",""]],"steps":""},{"name":"딸기라떼","cat":"Non 커피","color":"#E91E63","ing":[["가당딸기","200ml"],["설탕시럽","3P"],["우유",""],["얼음",""]],"steps":""},{"name":"로얄 밀크티","cat":"Non 커피","color":"#F7907B","ing":[["우유","300ml"],["홍차파우더","2래들"],["갈갈갈",""],["얼음",""]],"steps":""},{"name":"토피넛라떼","cat":"Non 커피","color":"#8D6E63","ing":[["우유","300ml"],["토피넛파우더","4래들"],["갈갈갈",""],["얼음",""]],"steps":""},{"name":"곡물 라떼","cat":"Non 커피","color":"#C08A00","ing":[["우유","300ml"],["곡물파우더","4래들"],["설탕시럽","1P"],["갈갈갈",""],["얼음",""]],"steps":""},{"name":"플레인 요거트 스무디","cat":"스무디&프라페","color":"#3BB8D8","ing":[["우유","250ml"],["요거트파우더","6래들"],["설탕시럽","1P"],["얼음","2스쿱"],["갈갈갈",""]],"steps":""},{"name":"망고 요거트 스무디","cat":"스무디&프라페","color":"#F58220","ing":[["우유","250ml"],["요거트파우더","3래들"],["골드망고베이스","1P"],["해동망고","10개"],["얼음","2스쿱"],["갈갈갈",""]],"steps":""},{"name":"딸기 요거트 스무디","cat":"스무디&프라페","color":"#E91E63","ing":[["우유","150ml"],["가당딸기","150ml"],["요거트파우더","3래들"],["얼음","2스쿱"],["갈갈갈",""]],"steps":""},{"name":"스트로베리 치즈 홀릭","cat":"스무디&프라페","color":"#E91E63","ing":[["우유","150ml"],["가당딸기","150ml"],["요거트파우더","3래들"],["설탕시럽","1P"],["얼음","2스쿱"],["갈갈갈",""],["휘핑",""],["치즈큐브","6개"],["딸기분태",""]],"steps":""},{"name":"골드 망고 스무디","cat":"스무디&프라페","color":"#FFB300","ing":[["물","150ml"],["골드망고베이스","3.5P"],["해동망고","6개"],["얼음","2스쿱"],["갈갈갈",""]],"steps":""},{"name":"코코넛 커피 스무디","cat":"스무디&프라페","color":"#8D6E63","ing":[["코코넛베이스","250ml"],["코코넛칩","1래들"],["얼음","2스쿱"],["갈갈갈",""],["컵","바닥 식힌 샷 50ml"],["담기",""],["코코넛칩","1래들 토핑"]],"steps":""},{"name":"오레오 초코라떼","cat":"Non 커피","color":"#8D6E63","ing":[["우유","200ml"],["초코베이스","50ml"],["오레오","3개"],["갈갈갈","5초"],["휘핑",""],["오레오","1개"],["쿠키분태",""]],"steps":""},{"name":"쿠키 프라페","cat":"스무디&프라페","color":"#8D6E63","ing":[["쿠키베이스","300ml"],["쿠키분태","3래들"],["얼음","2스쿱"],["갈갈갈",""],["컵","바닥 쿠키분태 1래들"],["담기",""],["휘핑",""],["오레오","2개"],["쿠키분태","톡톡톡"]],"steps":""},{"name":"딸기 쿠키 프라페","cat":"스무디&프라페","color":"#E91E63","ing":[["쿠키베이스","150ml"],["우유","150ml"],["얼음","2스쿱"],["갈갈갈",""],["딸기소스","2P"],["마블링",""],["컵","바닥 쿠키분태 2래들"],["담기",""],["휘핑",""],["딸기분태",""]],"steps":""},{"name":"리얼 초코 프라페","cat":"스무디&프라페","color":"#8D6E63","ing":[["쿠키베이스","100ml"],["초코베이스","150ml"],["초콜릿칩","1래들"],["얼음","2스쿱"],["갈갈갈",""],["휘핑",""],["초코&카라멜드리즐",""],["딸기분태",""]],"steps":""},{"name":"녹차 프라페","cat":"스무디&프라페","color":"#4CAF50","ing":[["쿠키베이스","150ml"],["녹차베이스","150ml"],["얼음","2스쿱"],["갈갈갈",""],["휘핑",""],["녹차파우더","톡톡"]],"steps":""},{"name":"커피 프라페","cat":"스무디&프라페","color":"#4E342E","ing":[["쿠키베이스","250ml"],["식힌","샷 2샷"],["얼음","2스쿱"],["갈갈갈",""],["휘핑",""],["카라멜드리즐",""]],"steps":""},{"name":"민트 프라페","cat":"스무디&프라페","color":"#6FE0C8","ing":[["우유","150ml"],["민트파우더","5래들"],["민트시럽","3P"],["초콜릿칩","1래들"],["얼음","2스쿱"],["갈갈갈",""],["휘핑",""],["딸기","분태 톡톡톡"]],"steps":""},{"name":"유니콘 프라페","cat":"스무디&프라페","color":"#8E5BC8","ing":[["쿠키베이스","150ml"],["우유","100ml"],["그라데이션파우더","2래들"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽에 블루소스드리즐 불규칙하게 삥~삥~"],["절반","담기"],["레몬즙","한바퀴"],["나머지","담기"],["휘핑",""],["레몬즙","톡톡"],["그라데이션파우더","톡톡"]],"steps":""},{"name":"플레인퐁 크러쉬","cat":"스무디&프라페","color":"#C08A00","ing":[["쿠키베이스","150ml"],["우유","150ml"],["설탕시럽","1P"],["죠리퐁","1컵"],["얼음","2스쿱"],["갈갈갈",""],["컵","밑선 죠리퐁"],["담기",""],["죠리퐁","가득 토핑"]],"steps":""},{"name":"바나나퐁 크러쉬","cat":"스무디&프라페","color":"#FFB300","ing":[["쿠키베이스","150ml"],["우유","150ml"],["설탕시럽","1P"],["죠리퐁","1컵"],["바나나파우더","2래들"],["얼음","2스쿱"],["갈갈갈",""],["컵","밑선 죠리퐁"],["담기",""],["죠리퐁","가득 토핑"]],"steps":""},{"name":"딸기퐁 크러쉬","cat":"스무디&프라페","color":"#E91E63","ing":[["쿠키베이스","150ml"],["우유","150ml"],["딸기소스","1P"],["죠리퐁","1컵"],["얼음","2스쿱"],["갈갈갈",""],["컵","밑선 죠리퐁"],["담기",""],["죠리퐁","가득 토핑"]],"steps":""},{"name":"초코 허니퐁 크러쉬","cat":"스무디&프라페","color":"#8D6E63","ing":[["쿠키베이스","150ml"],["우유","150ml"],["죠리퐁","1컵"],["초코파우더","2래들"],["얼음","2스쿱"],["갈갈갈",""],["담기",""],["허니퐁","가득 토핑"]],"steps":""},{"name":"슈크림 허니퐁 크러쉬","cat":"스무디&프라페","color":"#FFB300","ing":[["쿠키베이스","150ml"],["우유","150ml"],["죠리퐁","1컵"],["슈크림파우더","3래들"],["얼음","2스쿱"],["갈갈갈",""],["담기",""],["허니퐁","가득 토핑"]],"steps":""},{"name":"딸기 바나나 주스","cat":"주스","color":"#EF4B4B","ing":[["우유","100ml"],["물","100ml"],["딸기바나나","원팩"],["갈갈갈",""],["얼음",""],["담기",""]],"steps":""},{"name":"유니콘 매직 에이드 (블루)","cat":"에이드","color":"#5C6BC0","ing":[["모히또시럽","1P"],["라임시럽","2P"],["블루큐라소시럽","2p"],["얼음",""],["라임슬라이스","1개"],["사이다",""],["그라데이션베이스","75ml"]],"steps":""},{"name":"포도 녹차 젤리 크러쉬","cat":"스무디&프라페","color":"#8E5BC8","ing":[["물","100ml"],["포도그린티베이스","4.5P"],["얼음","1컵"],["1번","버튼 갈갈갈"],["그린알로에","워터젤리 컵 밑선"],["담기",""],["잘","저어서 드세요"]],"steps":""},{"name":"멋쟁이 토마토 스무디","cat":"스무디&프라페","color":"#F25C4D","ing":[["물","150ml"],["토마토베이스","4P"],["얼음","2스쿱"],["갈갈갈",""],["담기",""],["와작펄슈가","2t래들"],["애플민트","토핑"]],"steps":""},{"name":"복숭아 퐁당 요거트 스무디","cat":"스무디&프라페","color":"#F7907B","ing":[["우유","150ml"],["요거트파우더","3래들"],["설탕시럽","2P"],["백도복숭아베이스","3래들"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽에 백도복숭아베이스 1래들 발라발라"],["담기",""],["잘","저어서 드세요"]],"steps":""},{"name":"팥빙 젤라또 파르페","cat":"스무디&프라페","color":"#8D6E63","ing":[["우유빙수베이스","100ml"],["얼음","한 컵"],["1번","버튼 갈갈갈"],["컵","바닥 빙수팥 1스쿱 탁탁탁"],["절반","담기"],["안쪽","벽 믹스씨리얼 2래들 삥~"],["나머지","담기"],["팥젤라또","1스쿱 토핑"],["나란히","빙수팥 1스쿱 토핑"],["빙수떡","1래들"],["믹스씨리얼","1래들"],["팥젤라또","위 연유드리즐"]],"steps":""},{"name":"헛개리카노","cat":"커피","color":"#4E342E","ing":[["에스프레소","2샷"],["헛개베이스",""],["24","oz - 3P"],["32","oz - 5P"]],"steps":""},{"name":"할메가 미숫 커피","cat":"커피","color":"#4E342E","ing":[["할메가커피베이스","300ml"],["곡물파우더","3래들"],["갈갈갈",""],["얼음",""],["담기",""]],"steps":""},{"name":"밀크쉐이크","cat":"스무디&프라페","color":"#3BB8D8","ing":[["우유","200ml"],["밀크파우더","5래들"],["얼음","2스쿱"],["갈갈갈",""]],"steps":""},{"name":"왕 메가 사과 유자차","cat":"Tea","color":"#E91E63","ing":[["애플티백","2개"],["유자청","6래들"]],"steps":""},{"name":"상큼 리치티","cat":"Tea","color":"#F7907B","ing":[["ICE","- 리치베이스 컵 밑선"],["HOT","- 리치베이스 100ml"],["냉동레드커런트","1래들"],["물",""],["섞기",""],["로즈마리","토핑"]],"steps":""},{"name":"초당 옥수수 스무디","cat":"스무디&프라페","color":"#FFB300","ing":[["우유","150ml"],["우유","빙수 베이스  50ml"],["설탕시럽","2P"],["초당","옥수수 파우더 4래들"],["얼음","2스쿱"],["갈갈갈",""],["담기",""],["초당옥수수콘","2래들 토핑"]],"steps":""}]</script>
+<script id="recipeData" type="application/json">[{"name":"복숭아 퐁당 요거트 스무디","cat":"스무디&프라페","color":"#F7907B","ing":[["우유","200ml"],["요거트파우더","3래들"],["복숭아베이스","3P"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽면 복숭아베이스 1P"],["담기",""]],"steps":""},{"name":"애플 머스캣 요거트 스무디","cat":"스무디&프라페","color":"#4CAF50","ing":[["우유","200ml"],["요거트파우더","3래들"],["애플머스캣베이스","3P"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽면 애플머스캣베이스 1P"],["담기",""]],"steps":""},{"name":"블루베리 요거트 스무디","cat":"스무디&프라페","color":"#5C6BC0","ing":[["우유","200ml"],["요거트파우더","3래들"],["블루베리베이스","3P"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽면 블루베리베이스 1P"],["담기",""]],"steps":""},{"name":"자몽 톡톡 스무디","cat":"스무디&프라페","color":"#EF4B4B","ing":[["물","200ml"],["자몽톡톡베이스","4P"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽면 자몽톡톡베이스 1P"],["담기",""],["자몽셀","1스푼 토핑 (옵션추가 시 1스푼씩 추가)"]],"steps":""},{"name":"제로 부스트 에이드","cat":"에이드","color":"#DFAF1F","ing":[["부스터베이스","2P"],["레몬슬라이스","1개"],["얼음",""],["제로사이다",""]],"steps":""},{"name":"메가 에이드","cat":"에이드","color":"#F25C4D","ing":[["메가에이드베이스","2P"],["과일슬라이스","3종 각 2개씩"],["콩콩콩",""],["얼음",""],["사이다",""]],"steps":""},{"name":"수박 주스","cat":"주스","color":"#E91E63","ing":[["수박주스","300ml"],["냉동수박다이스","2스쿱"],["갈갈갈",""],["얼음",""],["담기",""]],"steps":""},{"name":"저당 꿀배 XO 야쿠르트","cat":"에이드","color":"#DFAF1F","ing":[["꿀배베이스","컵 밑선"],["얼음",""],["요구르트","2개"]],"steps":""},{"name":"라임 모히또","cat":"에이드","color":"#8CB832","ing":[["모히또시럽","4P"],["라임시럽","3P"],["라임슬라이스","4개"],["민트","한 줌"],["콩콩콩",""],["얼음",""],["사이다",""]],"steps":""},{"name":"HOT 카라멜마끼아또","cat":"커피","color":"#4E342E","ing":[["카라멜시럽","3P"],["에스프레소","2샷"],["우유스팀","두껍게"],["카라멜드리즐",""]],"steps":""},{"name":"아이스 카라멜마끼아또","cat":"커피","color":"#4E342E","ing":[["카라멜시럽","4P"],["에스프레소","2샷"],["우유거품기",""],["카라멜드리즐",""]],"steps":""},{"name":"녹차 베이스","cat":"베이스","color":"#4CAF50","ing":[["뜨거운","물 500ml"],["녹차파우더","500g"],["갈갈갈",""]],"steps":""},{"name":"초코 베이스","cat":"베이스","color":"#8D6E63","ing":[["뜨거운","물 1100ml"],["초코파우더","1봉"],["갈갈갈",""]],"steps":""},{"name":"체리 베이스","cat":"베이스","color":"#E91E63","ing":[["뜨거운","물 500ml"],["체리파우더","1통"]],"steps":""},{"name":"아이스티 베이스","cat":"베이스","color":"#F25C4D","ing":[["뜨거운","물 900ml"],["아이스티파우더","1봉"]],"steps":""},{"name":"할메가 커피  베이스","cat":"베이스","color":"#4E342E","ing":[["뜨거운","물 1000ml"],["할커피파우더","400g"],["얼음","630g"]],"steps":""},{"name":"쿠키 베이스","cat":"베이스","color":"#3BB8D8","ing":[["우유","900ml"],["쿠키베이스파우더","425g"],["갈갈갈",""]],"steps":""},{"name":"체리콕","cat":"에이드","color":"#E91E63","ing":[["체리베이스","컵 밑선"],["얼음",""],["콜라",""]],"steps":""},{"name":"레몬에이드","cat":"에이드","color":"#FFB300","ing":[["레몬베이스","2P"],["설탕시럽","1P"],["얼음",""],["사이다",""],["레몬슬라이스","1개"]],"steps":""},{"name":"블루레몬에이드","cat":"에이드","color":"#4A7FD9","ing":[["블루큐라소시럽","2P"],["레몬베이스","2P"],["얼음",""],["사이다",""],["레몬슬라이스","1개"]],"steps":""},{"name":"자몽에이드","cat":"에이드","color":"#EF4B4B","ing":[["자몽베이스","1P"],["자몽시럽","1P"],["설탕시럽","1P"],["얼음",""],["사이다",""],["자몽슬라이스","1개"]],"steps":""},{"name":"제로 레몬 말차 아이스티","cat":"에이드","color":"#8CB832","ing":[["제로레몬말차베이스","MGC선"],["물",""],["얼음",""],["레몬슬라이스","1개"]],"steps":""},{"name":"아이스 초코","cat":"Non 커피","color":"#8D6E63","ing":[["우유","300ml"],["초코파우더","4래들"],["갈갈갈",""],["얼음",""]],"steps":""},{"name":"핫초코","cat":"Non 커피","color":"#8D6E63","ing":[["초코파우더","4래들"],["우유스팀",""],["섞기",""],["코코아파우더","톡톡"]],"steps":""},{"name":"아이스 녹차라떼","cat":"Non 커피","color":"#8CB832","ing":[["녹차베이스","컵 밑선"],["얼음",""],["우유",""],["섞기",""]],"steps":""},{"name":"HOT 녹차라떼","cat":"Non 커피","color":"#8CB832","ing":[["녹차파우더","2래들"],["우유스팀",""],["섞기",""],["녹차파우더","톡톡"]],"steps":""},{"name":"초코 젤라또 말차 라떼","cat":"Non 커피","color":"#8D6E63","ing":[["녹차베이스","컵 밑선"],["컵","상단 안쪽 초코소스 삥~"],["얼음",""],["에스프레소","1샷"],["우유",""],["초코젤라또","1스쿱"]],"steps":""},{"name":"콜드브루","cat":"콜드브루","color":"#4E342E","ing":[["HOT","- 100ml"],["ICE","- 컵 밑선"]],"steps":""},{"name":"유자차","cat":"Tea","color":"#FFB300","ing":[["HOT","- 유자청 5래들"],["ICE","- 유자청 6래들"]],"steps":""},{"name":"레몬차","cat":"Tea","color":"#FFB300","ing":[["HOT","- 레몬청 5래들"],["ICD","- 레몬청 6래들"],["레몬슬라이스","1개"]],"steps":""},{"name":"자몽차","cat":"Tea","color":"#F25C4D","ing":[["HOT","- 자몽청 4래들, 설탕시럽 2P"],["ICE","- 자몽청 4래들, 설탕시럽 1P"],["자몽슬라이스","1개"]],"steps":""},{"name":"허니 자몽 블랙티","cat":"Tea","color":"#F25C4D","ing":[["얼그레이티백","1개"],["자몽청","3래들"],["꿀","1래들"],["자몽슬라이스","1개"]],"steps":""},{"name":"사과 유자차","cat":"Tea","color":"#E91E63","ing":[["애플티백","1개"],["유자청","4래들"]],"steps":""},{"name":"제로 슈가 아이스티","cat":"Tea","color":"#F7907B","ing":[["제로슈가","아이스티베이스 5P"],["물",""],["얼음",""]],"steps":""},{"name":"딸기라떼","cat":"Non 커피","color":"#E91E63","ing":[["가당딸기","200ml"],["설탕시럽","3P"],["우유",""],["얼음",""]],"steps":""},{"name":"로얄 밀크티","cat":"Non 커피","color":"#F7907B","ing":[["우유","300ml"],["홍차파우더","2래들"],["갈갈갈",""],["얼음",""]],"steps":""},{"name":"토피넛라떼","cat":"Non 커피","color":"#8D6E63","ing":[["우유","300ml"],["토피넛파우더","4래들"],["갈갈갈",""],["얼음",""]],"steps":""},{"name":"곡물 라떼","cat":"Non 커피","color":"#C08A00","ing":[["우유","300ml"],["곡물파우더","4래들"],["설탕시럽","1P"],["갈갈갈",""],["얼음",""]],"steps":""},{"name":"플레인 요거트 스무디","cat":"스무디&프라페","color":"#3BB8D8","ing":[["우유","250ml"],["요거트파우더","6래들"],["설탕시럽","1P"],["얼음","2스쿱"],["갈갈갈",""]],"steps":""},{"name":"망고 요거트 스무디","cat":"스무디&프라페","color":"#F58220","ing":[["우유","250ml"],["요거트파우더","3래들"],["골드망고베이스","1P"],["해동망고","10개"],["얼음","2스쿱"],["갈갈갈",""]],"steps":""},{"name":"딸기 요거트 스무디","cat":"스무디&프라페","color":"#E91E63","ing":[["우유","150ml"],["가당딸기","150ml"],["요거트파우더","3래들"],["얼음","2스쿱"],["갈갈갈",""]],"steps":""},{"name":"스트로베리 치즈 홀릭","cat":"스무디&프라페","color":"#E91E63","ing":[["우유","150ml"],["가당딸기","150ml"],["요거트파우더","3래들"],["설탕시럽","1P"],["얼음","2스쿱"],["갈갈갈",""],["휘핑",""],["치즈큐브","6개"],["딸기분태",""]],"steps":""},{"name":"골드 망고 스무디","cat":"스무디&프라페","color":"#FFB300","ing":[["물","150ml"],["골드망고베이스","3.5P"],["해동망고","6개"],["얼음","2스쿱"],["갈갈갈",""]],"steps":""},{"name":"코코넛 커피 스무디","cat":"스무디&프라페","color":"#8D6E63","ing":[["코코넛베이스","250ml"],["코코넛칩","1래들"],["얼음","2스쿱"],["갈갈갈",""],["컵","바닥 식힌 샷 50ml"],["담기",""],["코코넛칩","1래들 토핑"]],"steps":""},{"name":"오레오 초코라떼","cat":"Non 커피","color":"#8D6E63","ing":[["우유","200ml"],["초코베이스","50ml"],["오레오","3개"],["갈갈갈","5초"],["휘핑",""],["오레오","1개"],["쿠키분태",""]],"steps":""},{"name":"쿠키 프라페","cat":"스무디&프라페","color":"#8D6E63","ing":[["쿠키베이스","300ml"],["쿠키분태","3래들"],["얼음","2스쿱"],["갈갈갈",""],["컵","바닥 쿠키분태 1래들"],["담기",""],["휘핑",""],["오레오","2개"],["쿠키분태","톡톡톡"]],"steps":""},{"name":"딸기 쿠키 프라페","cat":"스무디&프라페","color":"#E91E63","ing":[["쿠키베이스","150ml"],["우유","150ml"],["얼음","2스쿱"],["갈갈갈",""],["딸기소스","2P"],["마블링",""],["컵","바닥 쿠키분태 2래들"],["담기",""],["휘핑",""],["딸기분태",""]],"steps":""},{"name":"리얼 초코 프라페","cat":"스무디&프라페","color":"#8D6E63","ing":[["쿠키베이스","100ml"],["초코베이스","150ml"],["초콜릿칩","1래들"],["얼음","2스쿱"],["갈갈갈",""],["휘핑",""],["초코&카라멜드리즐",""],["딸기분태",""]],"steps":""},{"name":"녹차 프라페","cat":"스무디&프라페","color":"#4CAF50","ing":[["쿠키베이스","150ml"],["녹차베이스","150ml"],["얼음","2스쿱"],["갈갈갈",""],["휘핑",""],["녹차파우더","톡톡"]],"steps":""},{"name":"커피 프라페","cat":"스무디&프라페","color":"#4E342E","ing":[["쿠키베이스","250ml"],["식힌","샷 2샷"],["얼음","2스쿱"],["갈갈갈",""],["휘핑",""],["카라멜드리즐",""]],"steps":""},{"name":"민트 프라페","cat":"스무디&프라페","color":"#6FE0C8","ing":[["우유","150ml"],["민트파우더","5래들"],["민트시럽","3P"],["초콜릿칩","1래들"],["얼음","2스쿱"],["갈갈갈",""],["휘핑",""],["딸기","분태 톡톡톡"]],"steps":""},{"name":"유니콘 프라페","cat":"스무디&프라페","color":"#8E5BC8","ing":[["쿠키베이스","150ml"],["우유","100ml"],["그라데이션파우더","2래들"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽에 블루소스드리즐 불규칙하게 삥~삥~"],["절반","담기"],["레몬즙","한바퀴"],["나머지","담기"],["휘핑",""],["레몬즙","톡톡"],["그라데이션파우더","톡톡"]],"steps":""},{"name":"플레인퐁 크러쉬","cat":"스무디&프라페","color":"#C08A00","ing":[["쿠키베이스","150ml"],["우유","150ml"],["설탕시럽","1P"],["죠리퐁","1컵"],["얼음","2스쿱"],["갈갈갈",""],["컵","밑선 죠리퐁"],["담기",""],["죠리퐁","가득 토핑"]],"steps":""},{"name":"바나나퐁 크러쉬","cat":"스무디&프라페","color":"#FFB300","ing":[["쿠키베이스","150ml"],["우유","150ml"],["설탕시럽","1P"],["죠리퐁","1컵"],["바나나파우더","2래들"],["얼음","2스쿱"],["갈갈갈",""],["컵","밑선 죠리퐁"],["담기",""],["죠리퐁","가득 토핑"]],"steps":""},{"name":"딸기퐁 크러쉬","cat":"스무디&프라페","color":"#E91E63","ing":[["쿠키베이스","150ml"],["우유","150ml"],["딸기소스","1P"],["죠리퐁","1컵"],["얼음","2스쿱"],["갈갈갈",""],["컵","밑선 죠리퐁"],["담기",""],["죠리퐁","가득 토핑"]],"steps":""},{"name":"초코 허니퐁 크러쉬","cat":"스무디&프라페","color":"#8D6E63","ing":[["쿠키베이스","150ml"],["우유","150ml"],["죠리퐁","1컵"],["초코파우더","2래들"],["얼음","2스쿱"],["갈갈갈",""],["담기",""],["허니퐁","가득 토핑"]],"steps":""},{"name":"슈크림 허니퐁 크러쉬","cat":"스무디&프라페","color":"#FFB300","ing":[["쿠키베이스","150ml"],["우유","150ml"],["죠리퐁","1컵"],["슈크림파우더","3래들"],["얼음","2스쿱"],["갈갈갈",""],["담기",""],["허니퐁","가득 토핑"]],"steps":""},{"name":"딸기 바나나 주스","cat":"주스","color":"#EF4B4B","ing":[["우유","100ml"],["물","100ml"],["딸기바나나","원팩"],["갈갈갈",""],["얼음",""],["담기",""]],"steps":""},{"name":"유니콘 매직 에이드 (블루)","cat":"에이드","color":"#5C6BC0","ing":[["모히또시럽","1P"],["라임시럽","2P"],["블루큐라소시럽","2p"],["얼음",""],["라임슬라이스","1개"],["사이다",""],["그라데이션베이스","75ml"]],"steps":""},{"name":"포도 녹차 젤리 크러쉬","cat":"스무디&프라페","color":"#8E5BC8","ing":[["물","100ml"],["포도그린티베이스","4.5P"],["얼음","1컵"],["1번","버튼 갈갈갈"],["그린알로에","워터젤리 컵 밑선"],["담기",""],["잘","저어서 드세요"]],"steps":""},{"name":"멋쟁이 토마토 스무디","cat":"스무디&프라페","color":"#F25C4D","ing":[["물","150ml"],["토마토베이스","4P"],["얼음","2스쿱"],["갈갈갈",""],["담기",""],["와작펄슈가","2t래들"],["애플민트","토핑"]],"steps":""},{"name":"복숭아 퐁당 요거트 스무디","cat":"스무디&프라페","color":"#F7907B","ing":[["우유","150ml"],["요거트파우더","3래들"],["설탕시럽","2P"],["백도복숭아베이스","3래들"],["얼음","2스쿱"],["갈갈갈",""],["컵","벽에 백도복숭아베이스 1래들 발라발라"],["담기",""],["잘","저어서 드세요"]],"steps":""},{"name":"팥빙 젤라또 파르페","cat":"스무디&프라페","color":"#8D6E63","ing":[["우유빙수베이스","100ml"],["얼음","1컵"],["1번","버튼 갈갈갈"],["컵","바닥 빙수팥 1스쿱 탁탁탁"],["절반","담기"],["안쪽","벽 믹스씨리얼 2래들 삥~"],["나머지","담기"],["팥젤라또","1스쿱 토핑"],["나란히","빙수팥 1스쿱 토핑"],["빙수떡","1래들"],["믹스씨리얼","1래들"],["팥젤라또","위 연유드리즐"]],"steps":""},{"name":"헛개리카노","cat":"커피","color":"#4E342E","ing":[["에스프레소","2샷"],["헛개베이스",""],["24","oz - 3P"],["32","oz - 5P"]],"steps":""},{"name":"할메가 미숫 커피","cat":"커피","color":"#4E342E","ing":[["할메가커피베이스","300ml"],["곡물파우더","3래들"],["갈갈갈",""],["얼음",""],["담기",""]],"steps":""},{"name":"밀크쉐이크","cat":"스무디&프라페","color":"#3BB8D8","ing":[["우유","200ml"],["밀크파우더","5래들"],["얼음","2스쿱"],["갈갈갈",""]],"steps":""},{"name":"왕 메가 사과 유자차","cat":"Tea","color":"#E91E63","ing":[["애플티백","2개"],["유자청","6래들"]],"steps":""},{"name":"상큼 리치티","cat":"Tea","color":"#F7907B","ing":[["ICE","- 리치베이스 컵 밑선"],["HOT","- 리치베이스 100ml"],["냉동레드커런트","1래들"],["물",""],["섞기",""],["로즈마리","토핑"]],"steps":""},{"name":"초당 옥수수 스무디","cat":"스무디&프라페","color":"#FFB300","ing":[["우유","150ml"],["우유","빙수 베이스  50ml"],["설탕시럽","2P"],["초당","옥수수 파우더 4래들"],["얼음","2스쿱"],["갈갈갈",""],["담기",""],["초당옥수수콘","2래들 토핑"]],"steps":""}]</script>
 <script>
 // ───────── 데이터 ─────────
 const STORAGE_KEY = 'drinkQuizRecipes_v1';
