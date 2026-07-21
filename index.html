@@ -527,7 +527,8 @@ function renderList(){
     .filter(({r})=>{
       if(listCat!=='전체' && r.cat!==listCat) return false;
       return matchRecipe(r, term);
-    });
+    })
+    .sort((a,b)=>a.r.name.localeCompare(b.r.name,'ko')); // 가나다순
   if(shown.length===0){
     box.innerHTML = term
       ? `<div class="empty">"${esc(term)}" 검색 결과가 없어요 🥤</div>`
@@ -722,7 +723,8 @@ function fcApplyFilter(){
     .filter(({r})=>{
       if(fcCat!=='전체' && r.cat!==fcCat) return false;
       return matchRecipe(r, term);
-    });
+    })
+    .sort((a,b)=>a.r.name.localeCompare(b.r.name,'ko')); // 가나다순
   if(shown.length===0){
     area.innerHTML = term
       ? `<div class="empty">"${esc(term)}" 검색 결과가 없어요 🥤</div>`
