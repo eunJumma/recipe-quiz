@@ -68,7 +68,11 @@
   }
   .manage-row{
     display:flex; justify-content:flex-end; align-items:center;
-    gap:8px; flex-wrap:wrap; margin:0 6px 16px;
+    gap:6px; flex-wrap:wrap; margin:0 6px 16px;
+  }
+  .manage-row .btn-sm{
+    padding:8px 4px; font-size:12px;
+    flex:1 1 0; min-width:0; text-align:center;
   }
   .manage-btn{
     border:none; background:none; cursor:pointer;
@@ -95,13 +99,19 @@
     background:var(--mint); color:#fff;
     box-shadow:0 3px 10px rgba(47,176,140,.25);
   }
-  .btn-line{background:var(--card); border:1.5px solid var(--line); color:var(--ink);}
+  .btn-line{background:var(--card); box-shadow:inset 0 0 0 1.5px var(--line); color:var(--ink);}
   .btn-orange{
     background:linear-gradient(135deg, #F58220, #FFB300); color:#fff;
     border:none; font-weight:700;
     box-shadow:0 3px 10px rgba(245,130,32,.3);
   }
   .btn-orange:active{filter:brightness(.95);}
+  .btn-leaf{
+    background:linear-gradient(135deg, #95B64B, #67AC5B); color:#fff;
+    border:none; font-weight:700;
+    box-shadow:0 3px 10px rgba(103,172,91,.3);
+  }
+  .btn-leaf:active{filter:brightness(.95);}
   .btn-sm{font-size:13px; padding:8px 14px;}
   .btn-danger{background:#FDE7E7; color:var(--red);}
   .btn-block{width:100%;}
@@ -321,9 +331,9 @@
     <button data-tab="quiz" onclick="showTab('quiz')" class="">퀴즈</button>
   </div>
   <div class="manage-row">
-    <button class="btn btn-line btn-sm" onclick="exportForPhone()">📱 모바일로 내보내기</button>
-    <button class="btn btn-main btn-sm" onclick="showTab('recipes'); listDetail=null; openForm()">+ 레시피 추가</button>
     <button class="btn btn-orange btn-sm" onclick="showTab('recipes')">🛠 레시피 수정</button>
+    <button class="btn btn-main btn-sm" onclick="showTab('recipes'); listDetail=null; openForm()">+ 레시피 추가</button>
+    <button class="btn btn-leaf btn-sm" onclick="exportForPhone()">📱 내보내기</button>
   </div>
 
   <!-- ── 레시피 탭 ── -->
