@@ -308,7 +308,7 @@
   </header>
 
   <div class="tabs">
-    <button class="" data-tab="flash" onclick="showTab('flash')">플래시카드</button>
+    <button class="" data-tab="flash" onclick="showTab('flash')">메뉴 목록</button>
     <button data-tab="quiz" onclick="showTab('quiz')" class="">퀴즈</button>
   </div>
   <div class="manage-row">
@@ -385,30 +385,7 @@
       <button class="search-clear" id="fcSearchClear" onclick="fcClearSearch()" style="display: none;">✕</button>
     </div>
     <div class="cat-row" id="fcCatRow"><button class="cat-chip on" style="background:#41333F;color:#fff" data-cat="전체" onclick="setFcCat(this.dataset.cat)">전체</button><button class="cat-chip" style="background:rgb(239,235,233);color:#8D6E63" data-cat="커피" onclick="setFcCat(this.dataset.cat)">커피</button><button class="cat-chip" style="background:rgb(239,232,247);color:#8E5BC8" data-cat="Non 커피" onclick="setFcCat(this.dataset.cat)">Non 커피</button><button class="cat-chip" style="background:rgb(226,244,239);color:#2FB08C" data-cat="에이드" onclick="setFcCat(this.dataset.cat)">에이드</button><button class="cat-chip" style="background:rgb(253,234,239);color:#F26B8A" data-cat="스무디&amp;프라페" onclick="setFcCat(this.dataset.cat)">스무디&amp;프라페</button><button class="cat-chip" style="background:rgb(253,230,230);color:#EF4B4B" data-cat="주스" onclick="setFcCat(this.dataset.cat)">주스</button><button class="cat-chip" style="background:rgb(230,244,231);color:#4CAF50" data-cat="Tea" onclick="setFcCat(this.dataset.cat)">Tea</button><button class="cat-chip" style="background:rgb(246,239,219);color:#C08A00" data-cat="흑당" onclick="setFcCat(this.dataset.cat)">흑당</button><button class="cat-chip" style="background:rgb(230,227,226);color:#4E342E" data-cat="콜드브루" onclick="setFcCat(this.dataset.cat)">콜드브루</button><button class="cat-chip" style="background:rgb(230,237,250);color:#4A7FD9" data-cat="베이스" onclick="setFcCat(this.dataset.cat)">베이스</button></div>
-    <div id="flashArea">
-    <div class="fc-stage">
-      <div class="fc-card flip" id="fcCard" style="--cat:#F7907B;--cat-soft:rgb(254,239,237)" onclick="this.classList.toggle('flip')">
-        <div class="fc-face fc-front">
-          <div class="name">복숭아 퐁당 요거트 스무디</div>
-          <span class="cat" style="margin-top:10px">스무디&amp;프라페</span>
-        </div>
-        <div class="fc-face fc-back">
-          <h4>복숭아 퐁당 요거트 스무디</h4>
-          <ul class="ing-list">
-            <li>우유 200ml</li><li>요거트파우더 3래들</li><li>복숭아베이스 3P</li><li>얼음 2스쿱</li><li>갈갈갈</li><li>컵 벽면 복숭아베이스 1P</li><li>담기</li>
-          </ul>
-          
-        </div>
-      </div>
-    </div>
-    <div class="fc-nav">
-      <button class="btn btn-line" onclick="fcMove(-1)">◀ 이전</button>
-      <div class="fc-count">1 / 69</div>
-      <button class="btn btn-line" onclick="fcMove(1)">다음 ▶</button>
-    </div>
-    <div style="text-align:center; margin-top:12px">
-      <button class="btn btn-green btn-sm" onclick="fcShuffle()">🔀 섞기</button>
-    </div></div>
+    <div id="flashArea"></div>
   </div>
 
   <!-- ── 퀴즈 탭 ── -->
@@ -518,7 +495,7 @@ function renderCatRows(){
   document.getElementById('fcCatRow').innerHTML = mk(fcCat, 'setFcCat');
 }
 function setListCat(c){ listCat = c; openCards.clear(); renderCatRows(); renderList(); }
-function setFcCat(c){ fcCat = c; renderCatRows(); fcShowBack = true; fcApplyFilter(); }
+function setFcCat(c){ fcCat = c; fcOpenCards.clear(); renderCatRows(); fcApplyFilter(); }
 
 // 검색 개선: 이름·카테고리·재료명·용량·만드는법 모두 검색, 띄어쓰기 무시, 여러 단어 AND 검색
 function matchRecipe(r, term){
@@ -696,9 +673,10 @@ function saveRecipe(){
   closeForm(); renderCatRows(); renderList();
 }
 // ───────── 플래시카드 ─────────
-let fcOrder = [], fcIdx = 0, fcShowBack = false;
+// ───────── 메뉴 목록 (이름 탭 → 레시피 펼침) ─────────
+let fcOpenCards = new Set();
 function initFlash(){
-  fcShowBack = true;
+  fcOpenCards.clear();
   fcApplyFilter();
 }
 function fcApplyFilter(){
@@ -709,65 +687,43 @@ function fcApplyFilter(){
   }
   const term = document.getElementById('fcSearchInput').value.trim().toLowerCase();
   document.getElementById('fcSearchClear').style.display = term ? 'block' : 'none';
-  fcOrder = recipes
+  const shown = recipes
     .map((r,i)=>({r,i}))
     .filter(({r})=>{
       if(fcCat!=='전체' && r.cat!==fcCat) return false;
       return matchRecipe(r, term);
-    })
-    .map(({i})=>i);
-  if(fcOrder.length===0){
+    });
+  if(shown.length===0){
     area.innerHTML = term
       ? `<div class="empty">"${esc(term)}" 검색 결과가 없어요 🥤</div>`
       : `<div class="empty">"${esc(fcCat)}" 카테고리에 메뉴가 없어요 🥤</div>`;
     return;
   }
-  fcIdx = 0;
-  fcShowBack = true;
-  renderFlash();
+  area.innerHTML =
+    `<div style="text-align:right;font-size:12px;color:var(--ink-soft);margin-bottom:8px">${shown.length}개 메뉴</div>` +
+    shown.map(({r,i})=>`
+    <div class="recipe-card${fcOpenCards.has(i)?' open':''}" style="${catStyle(r)}">
+      <div class="card-head" onclick="fcToggleCard(${i})">
+        <h3>${esc(r.name)}</h3>
+        ${r.cat ? `<span class="cat">${esc(r.cat)}</span>` : ''}
+        <span class="chev">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="ing-list">
+          ${r.ing.map(x=>`<li>${esc((x[0]+' '+x[1]).trim())}</li>`).join('')}
+        </ul>
+        ${r.steps ? `<div class="steps">${esc(r.steps)}</div>` : ''}
+      </div>
+    </div>`).join('');
+}
+function fcToggleCard(i){
+  if(fcOpenCards.has(i)) fcOpenCards.delete(i);
+  else fcOpenCards.add(i);
+  fcApplyFilter();
 }
 function fcClearSearch(){
   document.getElementById('fcSearchInput').value = '';
   fcApplyFilter();
-}
-function renderFlash(){
-  const r = recipes[fcOrder[fcIdx]];
-  document.getElementById('flashArea').innerHTML = `
-    <div class="fc-stage">
-      <div class="fc-card${fcShowBack?' flip':''}" id="fcCard" style="${catStyle(r)}" onclick="this.classList.toggle('flip')">
-        <div class="fc-face fc-front">
-          <div class="name">${esc(r.name)}</div>
-          ${r.cat?`<span class="cat" style="margin-top:10px">${esc(r.cat)}</span>`:''}
-        </div>
-        <div class="fc-face fc-back">
-          <h4>${esc(r.name)}</h4>
-          <ul class="ing-list">
-            ${r.ing.map(x=>`<li>${esc((x[0]+' '+x[1]).trim())}</li>`).join('')}
-          </ul>
-          ${r.steps?`<div class="steps">${esc(r.steps)}</div>`:''}
-        </div>
-      </div>
-    </div>
-    <div class="fc-nav">
-      <button class="btn btn-line" onclick="fcMove(-1)">◀ 이전</button>
-      <div class="fc-count">${fcIdx+1} / ${fcOrder.length}</div>
-      <button class="btn btn-line" onclick="fcMove(1)">다음 ▶</button>
-    </div>
-    <div style="text-align:center; margin-top:12px">
-      <button class="btn btn-green btn-sm" onclick="fcShuffle()">🔀 섞기</button>
-    </div>`;
-}
-function fcMove(d){
-  fcIdx = (fcIdx + d + fcOrder.length) % fcOrder.length;
-  fcShowBack = true;
-  renderFlash();
-}
-function fcShuffle(){
-  for(let i=fcOrder.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [fcOrder[i],fcOrder[j]]=[fcOrder[j],fcOrder[i]];
-  }
-  fcIdx = 0; fcShowBack = true; renderFlash();
 }
 
 // ───────── 퀴즈 ─────────
