@@ -856,32 +856,40 @@ function playCorrect(){
   try{
     audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
     const t = audioCtx.currentTime;
-    // 띠링♪ 상승하는 두 음 (E5 → A5)
-    [[660,0],[880,0.12]].forEach(([f,d])=>{
-      const o = audioCtx.createOscillator();
-      const g = audioCtx.createGain();
-      o.type = 'sine';
-      o.frequency.setValueAtTime(f, t+d);
-      g.gain.setValueAtTime(0.0001, t+d);
-      g.gain.linearRampToValueAtTime(0.2, t+d+0.02);
-      g.gain.exponentialRampToValueAtTime(0.001, t+d+0.28);
-      o.connect(g); g.connect(audioCtx.destination);
-      o.start(t+d); o.stop(t+d+0.3);
+    // 실로폰 딩동댕 ♪ 3음 상승 (도 → 미 → 솔)
+    [[523.25,0],[659.25,0.14],[783.99,0.28]].forEach(([f,d])=>{
+      // 기본음 + 옥타브 위 배음을 살짝 섞어 실로폰 느낌
+      [[f,0.55],[f*2,0.18]].forEach(([freq,vol])=>{
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type = 'triangle';
+        o.frequency.setValueAtTime(freq, t+d);
+        g.gain.setValueAtTime(0.0001, t+d);
+        g.gain.linearRampToValueAtTime(vol, t+d+0.015);
+        g.gain.exponentialRampToValueAtTime(0.001, t+d+0.4);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(t+d); o.stop(t+d+0.45);
+      });
     });
   }catch(e){}
 }
 function playWrong(){
   try{
     audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-    const o = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
-    o.type = 'square';
-    o.frequency.setValueAtTime(220, audioCtx.currentTime);
-    o.frequency.setValueAtTime(160, audioCtx.currentTime + 0.13);
-    g.gain.setValueAtTime(0.18, audioCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
-    o.connect(g); g.connect(audioCtx.destination);
-    o.start(); o.stop(audioCtx.currentTime + 0.35);
+    const t = audioCtx.currentTime;
+    // 삐빅! 짧은 삑 두 번
+    [0, 0.16].forEach(d=>{
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = 'square';
+      o.frequency.setValueAtTime(330, t+d);
+      g.gain.setValueAtTime(0.0001, t+d);
+      g.gain.linearRampToValueAtTime(0.4, t+d+0.01);
+      g.gain.setValueAtTime(0.4, t+d+0.08);
+      g.gain.exponentialRampToValueAtTime(0.001, t+d+0.12);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(t+d); o.stop(t+d+0.13);
+    });
   }catch(e){}
 }
 function answer(btn, chosen){
