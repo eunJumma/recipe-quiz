@@ -1484,6 +1484,12 @@ function isQuizable(x){
 // '컵' + '벽면 ○○' 처럼 위치가 양(量) 쪽에 붙어있는 경우 → 이름을 '컵 벽면'으로 합쳐줌
 // (긴 단어를 먼저 넣어야 '상단 안쪽'이 '상단'보다 먼저 잡힘)
 const CUP_POS = ['상단 안쪽','벽면','밑선','바닥','안쪽','상단'];
+// 새 항목이 생기면 여기에 한 줄만 추가하면 됩니다
+const LEAD_WORDS = {
+  '뜨거운'  : ['물'],
+  '식힌'    : ['샷','에스프레소'],
+  '밀크쉐이크': ['파우더'],
+};
 function normIng(x){
   let name = ((x && x[0]) || '').replace(/\s+/g,' ').trim();
   let amt  = ((x && x[1]) || '').replace(/\s+/g,' ').trim();
@@ -1491,6 +1497,16 @@ function normIng(x){
   // '컵바닥' / '컵  바닥' → '컵 바닥'
   const m = name.match(/^컵\s*(상단 안쪽|벽면|밑선|바닥|안쪽|상단)$/);
   if(m) return ['컵 ' + m[1], amt];
+
+  // 이름이 수식어라서 양(量) 첫 단어를 이름 쪽에 붙여야 하는 경우
+  // 형식 → '데이터의 이름': [붙일 단어들(먼저 맞는 것 우선), ..., 기본값]
+  if(LEAD_WORDS[name]){
+    const list = LEAD_WORDS[name];
+    for(const w of list){
+      if(amt.indexOf(w) === 0) return [name + ' ' + w, amt.slice(w.length).trim()];
+    }
+    return [name + ' ' + list[0], amt];   // 양에 단어가 없으면 첫 번째를 기본으로
+  }
 
   // '1번' + '버튼 갈갈갈' → 이름 '1번 버튼', 양 '갈갈갈'
   const b = name.match(/^(\d+)번$/);
