@@ -1489,6 +1489,7 @@ const LEAD_WORDS = {
   '뜨거운'  : ['물'],
   '식힌'    : ['샷','에스프레소'],
   '밀크쉐이크': ['파우더'],
+  '시럽,'   : ['샷'],
 };
 function normIng(x){
   let name = ((x && x[0]) || '').replace(/\s+/g,' ').trim();
@@ -1497,6 +1498,13 @@ function normIng(x){
   // '컵바닥' / '컵  바닥' → '컵 바닥'
   const m = name.match(/^컵\s*(상단 안쪽|벽면|밑선|바닥|안쪽|상단)$/);
   if(m) return ['컵 ' + m[1], amt];
+
+  // '✅' 처럼 이름이 기호뿐인 안내 줄 → 양(量)의 마지막 단어를 답으로 삼아 나눔
+  // 예) '✅' + '초코베이스 사용 시 MGC선' → 이름 '초코베이스 사용 시', 양 'MGC선'
+  if(!/[가-힣A-Za-z0-9]/.test(name) && amt){
+    const sp = amt.lastIndexOf(' ');
+    if(sp > 0) return [amt.slice(0, sp).trim(), amt.slice(sp + 1).trim()];
+  }
 
   // 이름이 수식어라서 양(量) 첫 단어를 이름 쪽에 붙여야 하는 경우
   // 형식 → '데이터의 이름': [붙일 단어들(먼저 맞는 것 우선), ..., 기본값]
