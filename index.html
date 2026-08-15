@@ -1624,6 +1624,7 @@ function isQuizable(x){
 const CUP_POS = ['상단 안쪽','벽면','밑선','바닥','안쪽','상단'];
 function normIng(x){
   let name = (x && x[0]) || '', amt = (x && x[1]) || '';
+  if(name === '컵바닥') name = '컵 바닥';
   if(name === '컵'){
     for(const p of CUP_POS){
       if(amt.indexOf(p) === 0){
