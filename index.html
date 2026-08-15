@@ -1619,28 +1619,45 @@ function isQuizable(x){
   const name = (x && x[0]) || '';
   return /[가-힣A-Za-z0-9]/.test(name);
 }
+// '컵' + '벽면 ○○' 처럼 위치가 양(量) 쪽에 붙어있는 경우 → 이름을 '컵 벽면'으로 합쳐줌
+// (긴 단어를 먼저 넣어야 '상단 안쪽'이 '상단'보다 먼저 잡힘)
+const CUP_POS = ['상단 안쪽','벽면','밑선','바닥','안쪽','상단'];
+function normIng(x){
+  let name = (x && x[0]) || '', amt = (x && x[1]) || '';
+  if(name === '컵'){
+    for(const p of CUP_POS){
+      if(amt.indexOf(p) === 0){
+        name = '컵 ' + p;
+        amt = amt.slice(p.length).trim();
+        break;
+      }
+    }
+  }
+  return [name, amt];
+}
 function startQuiz(){
   quiz = []; qIdx = 0; bIdx = 0; qScore = 0; totalBlanks = 0;
   const count = Math.min(10, recipes.length);
   const targets = pickTargets(count);
   const allAmounts = [...new Set(
-    recipes.flatMap(r=>r.ing.filter(isQuizable).map(x=>x[1]))
+    recipes.flatMap(r=>r.ing.map(normIng).filter(isQuizable).map(x=>x[1]))
   )].filter(Boolean);
   targets.forEach(ti=>{
     const r = recipes[ti];
+    const ing = r.ing.map(normIng);            // 이 메뉴의 정리된 재료 목록
     const others = recipes.filter((_,i)=>i!==ti);
-    const otherNames = [...new Set(others.flatMap(o=>o.ing.filter(isQuizable).map(x=>x[0])))]
-      .filter(n=>!r.ing.some(x=>x[0]===n));
+    const otherNames = [...new Set(others.flatMap(o=>o.ing.map(normIng).filter(isQuizable).map(x=>x[0])))]
+      .filter(n=>!ing.some(x=>x[0]===n));
     const nameOk = otherNames.length >= 3;
 
     // 메뉴당 빈칸 2개(재료가 1개뿐이면 1개) 뽑기 — 기호 줄은 후보에서 제외
-    const cand = r.ing.map((_,i)=>i).filter(i=>isQuizable(r.ing[i]));
+    const cand = ing.map((_,i)=>i).filter(i=>isQuizable(ing[i]));
     if(cand.length === 0) return;
     const blankCount = Math.min(2, cand.length);
     const idxs = pickN(cand, blankCount).sort((a,b)=>a-b);
     const blanks = [];
     idxs.forEach(bi=>{
-      const x = r.ing[bi];
+      const x = ing[bi];
       const amtOk = x[1] && allAmounts.filter(a=>a!==x[1]).length >= 3;
       let mode;
       if(nameOk && amtOk) mode = Math.random()<0.5 ? 'name' : 'amt';
@@ -1659,7 +1676,7 @@ function startQuiz(){
     });
     if(blanks.length===0) return;
     totalBlanks += blanks.length;
-    quiz.push({title:r.name, ing:r.ing, blanks});
+    quiz.push({title:r.name, ing:ing, blanks});
   });
   if(quiz.length===0){
     document.getElementById('quizArea').innerHTML =
