@@ -1614,21 +1614,30 @@ function pickTargets(count){
   saveQuizPool(); // 껐다 켜도 이어지게 저장
   return picked;
 }
+// ✅ 같은 기호/이모지만 있는 줄은 퀴즈에서 제외 (한글·영문·숫자가 하나도 없으면 제외)
+function isQuizable(x){
+  const name = (x && x[0]) || '';
+  return /[가-힣A-Za-z0-9]/.test(name);
+}
 function startQuiz(){
   quiz = []; qIdx = 0; bIdx = 0; qScore = 0; totalBlanks = 0;
   const count = Math.min(10, recipes.length);
   const targets = pickTargets(count);
-  const allAmounts = [...new Set(recipes.flatMap(r=>r.ing.map(x=>x[1])).filter(Boolean))];
+  const allAmounts = [...new Set(
+    recipes.flatMap(r=>r.ing.filter(isQuizable).map(x=>x[1]))
+  )].filter(Boolean);
   targets.forEach(ti=>{
     const r = recipes[ti];
     const others = recipes.filter((_,i)=>i!==ti);
-    const otherNames = [...new Set(others.flatMap(o=>o.ing.map(x=>x[0])))]
+    const otherNames = [...new Set(others.flatMap(o=>o.ing.filter(isQuizable).map(x=>x[0])))]
       .filter(n=>!r.ing.some(x=>x[0]===n));
     const nameOk = otherNames.length >= 3;
 
-    // 메뉴당 빈칸 2개(재료가 1개뿐이면 1개) 뽑기
-    const blankCount = Math.min(2, r.ing.length);
-    const idxs = pickN(r.ing.map((_,i)=>i), blankCount).sort((a,b)=>a-b);
+    // 메뉴당 빈칸 2개(재료가 1개뿐이면 1개) 뽑기 — 기호 줄은 후보에서 제외
+    const cand = r.ing.map((_,i)=>i).filter(i=>isQuizable(r.ing[i]));
+    if(cand.length === 0) return;
+    const blankCount = Math.min(2, cand.length);
+    const idxs = pickN(cand, blankCount).sort((a,b)=>a-b);
     const blanks = [];
     idxs.forEach(bi=>{
       const x = r.ing[bi];
