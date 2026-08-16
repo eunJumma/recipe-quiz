@@ -1020,8 +1020,8 @@ const CONCEPT_QUIZ = [
   },
   {
     q: '에이드의 기본 액상은?',
-    answer: '사이다',
-    wrongs: ['물', '탄산수', '우유'],
+    answer: '탄산음료',
+    wrongs: ['물', '우유', '쿠키베이스'],
   },
   {
     q: '스무디의 기본 액상은?',
@@ -1045,8 +1045,8 @@ const CONCEPT_QUIZ = [
   },
 ];
 
-// 한 판에 나올 개념 문제 개수 (전부 내고 싶으면 CONCEPT_QUIZ.length 로 바꾸세요)
-const CONCEPT_PER_ROUND = 3;
+// 한 판에 나올 개념 문제 개수 (숫자로 바꾸면 그만큼만 랜덤 출제)
+const CONCEPT_PER_ROUND = CONCEPT_QUIZ.length;
 
 function startQuiz(){
   quiz = []; qIdx = 0; bIdx = 0; qScore = 0; totalBlanks = 0;
