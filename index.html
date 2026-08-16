@@ -1014,6 +1014,16 @@ const CONCEPT_QUIZ = [
     wrongs: ['얼음의 유무', '우유의 유무', '베이스의 유무'],
   },
   {
+    q: '티(Tea)의 기본 액상은?',
+    answer: '물',
+    wrongs: ['사이다', '우유', '쿠키베이스'],
+  },
+  {
+    q: '에이드의 기본 액상은?',
+    answer: '사이다',
+    wrongs: ['물', '탄산수', '우유'],
+  },
+  {
     q: '스무디의 기본 액상은?',
     answer: '물 또는 우유',
     wrongs: ['쿠키베이스', '쿠키베이스 + 우유', '연유'],
@@ -1034,6 +1044,9 @@ const CONCEPT_QUIZ = [
     wrongs: ['커피 프라페', '녹차 프라페', '딸기 쿠키 프라페'],
   },
 ];
+
+// 한 판에 나올 개념 문제 개수 (전부 내고 싶으면 CONCEPT_QUIZ.length 로 바꾸세요)
+const CONCEPT_PER_ROUND = 3;
 
 function startQuiz(){
   quiz = []; qIdx = 0; bIdx = 0; qScore = 0; totalBlanks = 0;
@@ -1083,8 +1096,8 @@ function startQuiz(){
       '<div class="empty">빈칸 문제를 만들기에 레시피 정보가 부족해요.<br>레시피를 더 추가해주세요!</div>';
     return;
   }
-  // 개념 문제를 섞어 넣기
-  CONCEPT_QUIZ.forEach(cq=>{
+  // 개념 문제를 섞어 넣기 (한 판에 CONCEPT_PER_ROUND개만 랜덤 출제)
+  pickN(CONCEPT_QUIZ, Math.min(CONCEPT_PER_ROUND, CONCEPT_QUIZ.length)).forEach(cq=>{
     const item = {
       type: 'concept',
       title: cq.q,
