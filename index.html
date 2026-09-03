@@ -1646,7 +1646,9 @@ const CONCEPT_PER_ROUND = CONCEPT_QUIZ.length;
 
 function startQuiz(){
   quiz = []; qIdx = 0; bIdx = 0; qScore = 0; totalBlanks = 0;
-  const count = Math.min(10, recipes.length);
+  // 한 판에 나올 레시피(빈칸) 문제 개수 — 숫자만 바꾸면 됩니다
+  const RECIPE_PER_ROUND = 20;
+  const count = Math.min(RECIPE_PER_ROUND, recipes.length);
   const targets = pickTargets(count);
   const allAmounts = [...new Set(
     recipes.flatMap(r=>r.ing.map(normIng).filter(isQuizable).map(x=>x[1]))
