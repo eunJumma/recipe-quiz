@@ -168,6 +168,14 @@
   .recipe-card.open .chev{transform:rotate(180deg);}
   .card-body{display:none; margin-top:12px;}
   .recipe-card.open .card-body{display:block;}
+  /* ── 시즌아웃 메뉴 (퀴즈 제외) ── */
+  .recipe-card.off{opacity:.55; border-top-color:#B0BEC5;}
+  .recipe-card.off h3{text-decoration:line-through; text-decoration-color:#90A4AE;}
+  .badge-off{
+    display:inline-block; font-size:11px; font-weight:700;
+    color:#fff; background:#90A4AE;
+    padding:3px 10px; border-radius:999px; white-space:nowrap;
+  }
   .cat{
     display:inline-block; font-size:12px; font-weight:700;
     color:var(--cat, #8F7BE0); background:var(--cat-soft, #EEEAFB);
@@ -361,6 +369,10 @@
 3. 스팀우유를 붓는다"></textarea>
       <label>메뉴 색상 <small>(선택 — 안 고르면 자동)</small></label>
       <div class="color-grid" id="colorGrid"><button type="button" class="color-swatch auto" onclick="pickColor(null)" title="자동">자동</button><button type="button" class="color-swatch" style="background:#F26B8A" onclick="pickColor('#F26B8A')"></button><button type="button" class="color-swatch" style="background:#F7907B" onclick="pickColor('#F7907B')"></button><button type="button" class="color-swatch" style="background:#F25C4D" onclick="pickColor('#F25C4D')"></button><button type="button" class="color-swatch" style="background:#EF4B4B" onclick="pickColor('#EF4B4B')"></button><button type="button" class="color-swatch" style="background:#E91E63" onclick="pickColor('#E91E63')"></button><button type="button" class="color-swatch" style="background:#F58220" onclick="pickColor('#F58220')"></button><button type="button" class="color-swatch" style="background:#FFB300" onclick="pickColor('#FFB300')"></button><button type="button" class="color-swatch" style="background:#DFAF1F" onclick="pickColor('#DFAF1F')"></button><button type="button" class="color-swatch" style="background:#C08A00" onclick="pickColor('#C08A00')"></button><button type="button" class="color-swatch" style="background:#8CB832" onclick="pickColor('#8CB832')"></button><button type="button" class="color-swatch" style="background:#4CAF50" onclick="pickColor('#4CAF50')"></button><button type="button" class="color-swatch" style="background:#2FB08C" onclick="pickColor('#2FB08C')"></button><button type="button" class="color-swatch" style="background:#6FE0C8" onclick="pickColor('#6FE0C8')"></button><button type="button" class="color-swatch" style="background:#00ACC1" onclick="pickColor('#00ACC1')"></button><button type="button" class="color-swatch" style="background:#3BB8D8" onclick="pickColor('#3BB8D8')"></button><button type="button" class="color-swatch" style="background:#4A7FD9" onclick="pickColor('#4A7FD9')"></button><button type="button" class="color-swatch" style="background:#5C6BC0" onclick="pickColor('#5C6BC0')"></button><button type="button" class="color-swatch" style="background:#8E5BC8" onclick="pickColor('#8E5BC8')"></button><button type="button" class="color-swatch" style="background:#B14FA8" onclick="pickColor('#B14FA8')"></button><button type="button" class="color-swatch sel" style="background:#9E847A" onclick="pickColor('#9E847A')"></button><button type="button" class="color-swatch" style="background:#765C54" onclick="pickColor('#765C54')"></button><button type="button" class="color-swatch" style="background:#4E342E" onclick="pickColor('#4E342E')"></button><button type="button" class="color-swatch" style="background:#78909C" onclick="pickColor('#78909C')"></button></div>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:12px">
+        <input type="checkbox" id="fOff" style="width:18px;height:18px">
+        <span>🔒 시즌아웃 <small>— 퀴즈에 나오지 않아요</small></span>
+      </label>
       <div class="form-actions">
         <button class="btn btn-green" style="flex:1" onclick="saveRecipe()">저장</button>
         <button class="btn btn-line" onclick="closeForm()">취소</button>
@@ -1153,10 +1165,13 @@ const CAT_COLORS = {
   '베이스':      '#2E7BFF'   // 형광 블루
 };
 let listCat = '전체', fcCat = '전체';
+// 카테고리 줄 맨 끝에 붙는 특별 칩 (시즌아웃 메뉴만 모아보기)
+const OFF_CAT = '🔒 시즌아웃';
 function allCats(){
   const extra = [...new Set(recipes.map(r=>r.cat).filter(Boolean))]
     .filter(c=>!FIXED_CATS.includes(c));
-  return ['전체', ...FIXED_CATS, ...extra];
+  const off = recipes.some(r=>r.off) ? [OFF_CAT] : [];
+  return ['전체', ...FIXED_CATS, ...extra, ...off];
 }
 function renderCatRows(){
   const mk = (sel, fn) => allCats().map(c=>{
@@ -1194,9 +1209,10 @@ function renderList(){
     const r = recipes[listDetail];
     box.innerHTML = `
     <button class="btn btn-line btn-sm" style="margin-bottom:12px" onclick="listBackToList()">◀ 목록으로</button>
-    <div class="recipe-card open" style="${catStyle(r)}">
+    <div class="recipe-card open${r.off ? ' off' : ''}" style="${catStyle(r)}">
       <div class="card-head">
         <h3>${esc(r.name)}</h3>
+        ${r.off ? '<span class="badge-off">🔒 시즌아웃</span>' : ''}
         ${r.cat ? `<span class="cat">${esc(r.cat)}</span>` : ''}
       </div>
       <div class="card-body">
@@ -1205,6 +1221,7 @@ function renderList(){
         </ul>
         ${r.steps ? `<div class="steps">${esc(r.steps)}</div>` : ''}
         <div class="card-actions">
+          <button class="btn btn-line btn-sm" onclick="toggleOff(${listDetail})">${r.off ? '🔓 시즌아웃 해제' : '🔒 시즌아웃'}</button>
           <button class="btn btn-line btn-sm" onclick="openForm(${listDetail})">수정</button>
           <button class="btn btn-danger btn-sm" onclick="deleteRecipe(${listDetail})">삭제</button>
         </div>
@@ -1216,7 +1233,8 @@ function renderList(){
   const shown = recipes
     .map((r,i)=>({r,i}))
     .filter(({r})=>{
-      if(listCat!=='전체' && r.cat!==listCat) return false;
+      if(listCat===OFF_CAT){ if(!r.off) return false; }
+      else if(listCat!=='전체' && r.cat!==listCat) return false;
       return matchRecipe(r, term);
     })
     .sort((a,b)=>a.r.name.localeCompare(b.r.name,'ko')); // 가나다순
@@ -1227,13 +1245,23 @@ function renderList(){
     return;
   }
   box.innerHTML = shown.map(({r,i})=>`
-    <div class="recipe-card" style="${catStyle(r)}">
+    <div class="recipe-card${r.off ? ' off' : ''}" style="${catStyle(r)}">
       <div class="card-head" onclick="listOpenDetail(${i})">
         <h3>${esc(r.name)}</h3>
+        ${r.off ? '<span class="badge-off">🔒</span>' : ''}
         ${r.cat ? `<span class="cat">${esc(r.cat)}</span>` : ''}
         <span class="chev" style="transform:rotate(-90deg)">▼</span>
       </div>
     </div>`).join('');
+}
+// ── 시즌아웃 잠금/해제 ──
+function toggleOff(i){
+  if(!recipes[i]) return;
+  recipes[i].off = !recipes[i].off;
+  quizPool = []; saveQuizPool();   // 퀴즈 순환 초기화
+  saveRecipes();
+  renderCatRows();
+  renderList();
 }
 // ── 메뉴 하나만 보기 상태 관리 ──
 let listDetail = null;
@@ -1373,6 +1401,7 @@ function openForm(i){
   renderColorGrid();
   document.getElementById('fIng').value = r ? r.ing.map(x=>(x[0]+' '+x[1]).trim()).join('\n') : '';
   document.getElementById('fSteps').value = r ? r.steps : '';
+  document.getElementById('fOff').checked = !!(r && r.off);
   document.getElementById('formBox').style.display = 'block';
   document.getElementById('fName').focus();
   window.scrollTo({top:0});
@@ -1392,7 +1421,8 @@ function saveRecipe(){
     cat: document.getElementById('fCat').value.trim(),
     color: fSelColor,
     ing,
-    steps: document.getElementById('fSteps').value.trim()
+    steps: document.getElementById('fSteps').value.trim(),
+    off: document.getElementById('fOff').checked   // 시즌아웃 여부
   };
   if(editIndex<0) recipes.push(r); else recipes[editIndex]=r;
   quizPool = []; saveQuizPool(); // 메뉴가 바뀌면 퀴즈 순환 초기화
@@ -1420,9 +1450,10 @@ function fcApplyFilter(){
     const r = recipes[fcDetail];
     area.innerHTML = `
     <button class="btn btn-line btn-sm" style="margin-bottom:12px" onclick="fcBackToList()">◀ 목록으로</button>
-    <div class="recipe-card open" style="${catStyle(r)}">
+    <div class="recipe-card open${r.off ? ' off' : ''}" style="${catStyle(r)}">
       <div class="card-head">
         <h3>${esc(r.name)}</h3>
+        ${r.off ? '<span class="badge-off">🔒 시즌아웃</span>' : ''}
         ${r.cat ? `<span class="cat">${esc(r.cat)}</span>` : ''}
       </div>
       <div class="card-body">
@@ -1439,7 +1470,8 @@ function fcApplyFilter(){
   const shown = recipes
     .map((r,i)=>({r,i}))
     .filter(({r})=>{
-      if(fcCat!=='전체' && r.cat!==fcCat) return false;
+      if(fcCat===OFF_CAT){ if(!r.off) return false; }
+      else if(fcCat!=='전체' && r.cat!==fcCat) return false;
       return matchRecipe(r, term);
     })
     .sort((a,b)=>a.r.name.localeCompare(b.r.name,'ko')); // 가나다순
@@ -1452,9 +1484,10 @@ function fcApplyFilter(){
   area.innerHTML =
     `<div style="text-align:right;font-size:12px;color:var(--ink-soft);margin-bottom:8px">${shown.length}개 메뉴</div>` +
     shown.map(({r,i})=>`
-    <div class="recipe-card" style="${catStyle(r)}">
+    <div class="recipe-card${r.off ? ' off' : ''}" style="${catStyle(r)}">
       <div class="card-head" onclick="fcOpenDetail(${i})">
         <h3>${esc(r.name)}</h3>
+        ${r.off ? '<span class="badge-off">🔒</span>' : ''}
         ${r.cat ? `<span class="cat">${esc(r.cat)}</span>` : ''}
         <span class="chev" style="transform:rotate(-90deg)">▼</span>
       </div>
@@ -1477,15 +1510,19 @@ function fcClearSearch(){
 
 // ───────── 퀴즈 ─────────
 let quiz = [], qIdx = 0, bIdx = 0, qScore = 0, totalBlanks = 0;
+// 시즌아웃이 아닌 메뉴들만 (퀴즈는 여기서만 출제)
+function liveRecipes(){ return recipes.filter(r=>!r.off); }
 function initQuiz(){
   const area = document.getElementById('quizArea');
-  if(recipes.length < 4){
-    area.innerHTML = '<div class="empty">퀴즈를 만들려면 레시피가 <b>4개 이상</b> 필요해요.<br>레시피 탭에서 더 추가해주세요!</div>';
+  const live = liveRecipes().length;
+  const offCnt = recipes.length - live;
+  if(live < 4){
+    area.innerHTML = '<div class="empty">퀴즈를 만들려면 시즌아웃이 아닌 레시피가 <b>4개 이상</b> 필요해요.<br>레시피 탭에서 더 추가하거나 시즌아웃을 해제해주세요!</div>';
     return;
   }
   area.innerHTML = `
     <div class="q-box" style="text-align:center">
-      <div class="q-text" style="margin-bottom:14px">등록된 레시피 ${recipes.length}개로<br>퀴즈를 시작할까요?</div>
+      <div class="q-text" style="margin-bottom:14px">레시피 ${live}개로<br>퀴즈를 시작할까요?${offCnt ? `<br><small style="color:var(--ink-soft)">🔒 시즌아웃 ${offCnt}개는 빼고 출제돼요</small>` : ''}</div>
       <button class="btn btn-main btn-block" onclick="startQuiz()">퀴즈 시작 ☕</button>
     </div>`;
 }
@@ -1517,16 +1554,18 @@ function saveQuizPool(){
 quizPool = loadQuizPool();
 function pickTargets(count){
   const picked = [];
+  // 시즌아웃 메뉴는 아예 후보에서 제외
+  const liveIdx = recipes.map((_,i)=>i).filter(i=>!recipes[i].off);
   let guard = 0;
   while(picked.length < count && guard++ < 500){
     // 풀이 비면 전체 메뉴로 다시 채우기 (한 바퀴 완주)
     if(quizPool.length === 0){
-      quizPool = pickN(recipes.map((_,i)=>i), recipes.length)
+      quizPool = pickN(liveIdx, liveIdx.length)
                    .filter(i => !picked.includes(i));
       if(quizPool.length === 0) break;
     }
     const i = quizPool.pop();
-    if(i < recipes.length && !picked.includes(i)) picked.push(i);
+    if(i < recipes.length && !recipes[i].off && !picked.includes(i)) picked.push(i);
   }
   saveQuizPool(); // 껐다 켜도 이어지게 저장
   return picked;
@@ -1648,15 +1687,16 @@ function startQuiz(){
   quiz = []; qIdx = 0; bIdx = 0; qScore = 0; totalBlanks = 0;
   // 한 판에 나올 레시피(빈칸) 문제 개수 — 숫자만 바꾸면 됩니다
   const RECIPE_PER_ROUND = 20;
-  const count = Math.min(RECIPE_PER_ROUND, recipes.length);
+  const live = liveRecipes();                 // 시즌아웃 제외한 메뉴들
+  const count = Math.min(RECIPE_PER_ROUND, live.length);
   const targets = pickTargets(count);
   const allAmounts = [...new Set(
-    recipes.flatMap(r=>r.ing.map(normIng).filter(isQuizable).map(x=>x[1]))
+    live.flatMap(r=>r.ing.map(normIng).filter(isQuizable).map(x=>x[1]))
   )].filter(Boolean);
   targets.forEach(ti=>{
     const r = recipes[ti];
     const ing = r.ing.map(normIng);            // 이 메뉴의 정리된 재료 목록
-    const others = recipes.filter((_,i)=>i!==ti);
+    const others = live.filter(o=>o!==r);
     const otherNames = [...new Set(others.flatMap(o=>o.ing.map(normIng).filter(isQuizable).map(x=>x[0])))]
       .filter(n=>!ing.some(x=>x[0]===n));
     const nameOk = otherNames.length >= 3;
